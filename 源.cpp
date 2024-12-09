@@ -409,7 +409,7 @@ int main()
 							{
 								setfillcolor(RGB(145, 145, 145));
 								fillcircle(460, 255, 30);
-								clearrectangle(b - 15*sizeof(output[i-1]), a, b, a + 30);
+								clearrectangle(b - 15*s(output[i-1]), a, b, a + 30);
 								output[i - 1] = '\0';
 								i--;
 								for (int p = 0; p < 100000000; p++);

@@ -6,7 +6,7 @@
 #include"CalcString.hpp"
 using namespace std;
 int a=0,b = 0,i=0;
-string output[360];
+string output;
 
 struct Button
 {
@@ -245,8 +245,7 @@ int main()
 					}
 					else b -= 15;
 					outtextxy(b, a, texjiecheng);
-					output[i] = *texjiecheng;
-					i++;
+					output += "!";
 					for (int p = 0; p < 100000000; p++);//延时
 					setButton(btns[0], 40, 255, texjiecheng, "1");
 					if (i >= 360)
@@ -277,8 +276,7 @@ int main()
 					}
 					else b -= 15;
 					outtextxy(b, a, texmi);
-					output[i] = *texmi;
-					i++;
+					output += "^";
 					for (int p = 0; p< 100000000; p++);
 					setButton(btns[1], 110, 255, texmi, "1");
 					if (i >= 360)
@@ -305,8 +303,7 @@ int main()
 								}
 								else b -= 30;
 								outtextxy(b, a, texln);
-								output[i] = *texln;
-								i+=2;
+								output += "ln";
 								for (int p = 0; p < 100000000; p++);
 								setButton(btns[1], 180, 255, texln, "1");
 								if (i >= 360)
@@ -333,8 +330,7 @@ int main()
 								}
 								else b -= 15;
 								outtextxy(b, a, texzuokuo);
-								output[i] = *texzuokuo;
-								i++;
+								output +="(";
 								for (int p = 0; p < 100000000; p++);
 								setButton(btns[1], 250, 255, texzuokuo, "1");
 								if (i >= 360)
@@ -361,8 +357,7 @@ int main()
 								}
 								else b -= 15;
 								outtextxy(b, a, texyoukuo);
-								output[i] = *texyoukuo;
-								i++;
+								output += ")";
 								for (int p = 0; p < 100000000; p++);
 								setButton(btns[1], 320, 255, texyoukuo, "1");
 								if (i >= 360)
@@ -383,7 +378,7 @@ int main()
 								setfillcolor(RGB(145, 145, 145));
 								fillcircle(390, 255, 30);
 								clearrectangle(0, 0, 600, 225);
-								memset(output, 0, sizeof(output));
+								output = "";
 								i = 0;
 								for (int p = 0; p < 100000000; p++);
 								setButton(btns[1], 390, 255, texac, "3");
@@ -409,9 +404,9 @@ int main()
 							{
 								setfillcolor(RGB(145, 145, 145));
 								fillcircle(460, 255, 30);
-								clearrectangle(b - 15*s(output[i-1]), a, b, a + 30);
-								output[i - 1] = '\0';
-								i--;
+								clearrectangle(b - 15, a, b, a + 30);
+								//clear(output);//清楚已存字符串的最后一个字符，而非最后一次输入
+								
 								for (int p = 0; p < 100000000; p++);
 								setButton(btns[1], 460, 255, texqingli, "3");
 								if (i >= 360)
@@ -444,8 +439,7 @@ int main()
 								}
 								else b -= 45;
 								outtextxy(b, a, texsin);
-								output[i] = 'sin';
-								i++;
+								output += "sin";
 								for (int p = 0; p < 100000000; p++);
 								setButton(btns[1], 40, 325, texsin, "1");
 								if (i >= 360)
@@ -472,8 +466,7 @@ int main()
 								}
 								else b -= 45;
 								outtextxy(b, a, texcos);
-								output[i] = *texcos;
-								i++;
+								output += "cos";
 								for (int p = 0; p < 100000000; p++);
 								setButton(btns[1], 110, 325, texcos, "1");
 								if (i >= 360)
@@ -500,8 +493,7 @@ int main()
 								}
 								else b -= 45;
 								outtextxy(b, a, textan);
-								output[i] = *textan;
-								i++;
+								output += "tan";
 								for (int p = 0; p < 100000000; p++);
 								setButton(btns[1], 180, 325, textan, "1");
 								if (i >= 360)
@@ -528,8 +520,7 @@ int main()
 								}
 								else b -= 15;
 								outtextxy(b, a, tex7);
-								output[i] = *tex7;
-								i++;
+								output += "7";
 								for (int p = 0; p < 100000000; p++);
 								setButton(btns[1], 250, 325, tex7, "4");
 								if (i >= 360)
@@ -556,8 +547,7 @@ int main()
 								}
 								else b -= 15;
 								outtextxy(b, a, tex8);
-								output[i] = *tex8;
-								i++;
+								output += "8";
 								for (int p = 0; p < 100000000; p++);
 								setButton(btns[1], 320, 325, tex8, "4");
 								if (i >= 360)
@@ -585,8 +575,7 @@ int main()
 								}
 								 else b -= 15;
 								outtextxy(b, a, tex9);
-								output[i] = *tex9;
-								i++;
+								output += "9";
 								for (int p = 0; p < 100000000; p++);
 								setButton(btns[1], 390, 325, tex9, "4");
 								if (i >= 360)
@@ -615,8 +604,7 @@ int main()
 								}
 								else b -= 15;
 								outtextxy(b, a, texjia);
-								output[i] = *texjia;
-								i++;
+								output+="+";
 								for (int p = 0; p < 100000000; p++);
 								setButton(btns[1], 460, 325, texjia, "2");
 								if (i >= 360)
@@ -644,8 +632,7 @@ int main()
 								}
 								else b -= 45;
 								outtextxy(b, a, texcot);
-								output[i] = *texcot;
-								i++;
+								output += "cot";
 								for (int p = 0; p < 100000000; p++);
 								setButton(btns[1], 40, 395, texcot, "1");
 								if (i >= 360)
@@ -672,8 +659,7 @@ int main()
 								}
 								else b -= 90;
 								outtextxy(b, a, texarcsin);
-								output[i] = *texarcsin;
-								i++;
+								output += "sin";
 								for (int p = 0; p < 100000000; p++);
 								setButton(btns[1], 110, 395, tex, "1");
 								settextstyle(15, 8, _T("宋体"));//设置字体格式
@@ -703,8 +689,7 @@ int main()
 								}
 								else b -= 90;
 								outtextxy(b, a, texarccos);
-								output[i] = *texarccos;
-								i++;
+								output += "arccos";
 								for (int p = 0; p < 100000000; p++);
 								setButton(btns[1], 180, 395, tex, "1");
 								settextstyle(15, 8, _T("宋体"));//设置字体格式
@@ -734,8 +719,7 @@ int main()
 								}
 								else b -= 15;
 								outtextxy(b, a, tex4);
-								output[i] = *tex4;
-								i++;
+								output += "4";
 								for (int p = 0; p < 100000000; p++);
 								setButton(btns[1], 250, 395, tex4, "4");
 								if (i >= 360)
@@ -762,8 +746,7 @@ int main()
 								}
 								else b -= 15;
 								outtextxy(b, a, tex5);
-								output[i] = *tex5;
-								i++;
+								output += "5";
 								for (int p = 0; p < 100000000; p++);
 								setButton(btns[1], 320, 395, tex5, "4");
 								if (i >= 360)
@@ -790,8 +773,7 @@ int main()
 								}
 								else b -= 15;
 								outtextxy(b, a, tex6);
-								output[i] = *tex6;
-								i++;
+								output += "6";
 								for (int p = 0; p < 100000000; p++);
 								setButton(btns[1], 390, 395, tex6, "4");
 								if (i >= 360)
@@ -818,8 +800,7 @@ int main()
 								}
 								else b -= 15;
 								outtextxy(b, a, texjian);
-								output[i] = *texjian;
-								i++;
+								output += "-";
 								for (int p = 0; p < 100000000; p++);
 								setButton(btns[1], 460, 395, texjian, "2");
 								if (i >= 360)
@@ -860,10 +841,7 @@ int main()
 									b = 0;
 								}
 								settextstyle(30, 15, _T("宋体"));
-								output[i] = *texe;
-								i++;
-								output[i] = *texmi;
-								i++;
+								output += "e^";
 								for (int p = 0; p < 100000000; p++);
 								setButton(btns[1], 40, 465, texe, "1");
 								settextstyle(18, 10, _T("宋体"));//设置字体格式
@@ -896,10 +874,7 @@ int main()
 								settextstyle(18, 10, _T("宋体"));//设置字体格式
 								outtextxy(b,a, tex2);
 								settextstyle(30, 15, _T("宋体"));
-								output[i] = *texmi;
-								i++;
-								output[i] = *tex2;
-								i++;
+								output += "^2";
 								for (int p = 0; p < 100000000; p++);
 								setButton(btns[1], 110, 465, texping, "1");
 								settextstyle(18, 10, _T("宋体"));//设置字体格式
@@ -932,10 +907,7 @@ int main()
 								settextstyle(18, 10, _T("宋体"));//设置字体格式
 								outtextxy(180 + 10, 465 - 10, tex3);
 								settextstyle(30, 15, _T("宋体"));
-								output[i] = *texmi;
-								i++;
-								output[i] = *tex3;
-								i++;
+								output += "^3";
 								for (int p = 0; p < 100000000; p++);
 								setButton(btns[1], 180, 465, texli, "1");
 								settextstyle(18, 10, _T("宋体"));//设置字体格式
@@ -966,8 +938,7 @@ int main()
 								else b -= 15;
 
 								outtextxy(b, a, tex1);
-								output[i] = *tex1;
-								i++;
+								output += "1";
 								for (int p = 0; p < 100000000; p++);
 								setButton(btns[1], 250, 465, tex1, "4");
 								if (i >= 360)
@@ -994,8 +965,7 @@ int main()
 								}
 								else b -= 15;
 								outtextxy(b, a, tex2);
-								output[i] = *tex2;
-								i++;
+								output += "2";
 								for (int p = 0; p < 100000000; p++);
 								setButton(btns[1], 320, 465, tex2, "4");
 								if (i >= 360)
@@ -1022,8 +992,7 @@ int main()
 								}
 								else b -= 15;
 								outtextxy(b, a, tex3);
-								output[i] = *tex3;
-								i++;
+								output += "3";
 								for (int p = 0; p < 100000000; p++);
 								setButton(btns[1], 390, 465, tex3, "4");
 								if (i >= 360)
@@ -1050,8 +1019,7 @@ int main()
 								}
 								else b -= 15;
 								outtextxy(b, a, texcheng);
-								output[i] = *texcheng;
-								i++;
+								output += "*";
 								for (int p = 0; p < 100000000; p++);
 								setButton(btns[1], 460, 465, texcheng, "2");
 								if (i >= 360)
@@ -1079,8 +1047,7 @@ int main()
 								}
 								else b -= 60;
 								outtextxy(b, a, texsqrt);
-								output[i] = *texsqrt;
-								i++;
+								output += "^0.5";
 								for (int p = 0; p < 100000000; p++);
 								setButton(btns[1], 40, 535, tex, "1");
 								settextstyle(18, 10, _T("宋体"));//设置字体格式
@@ -1113,10 +1080,7 @@ int main()
 								outtextxy(b, a, tex2);
 								b += 15;
 								outtextxy(b, a, texmi);
-								output[i] = *tex2;
-								i++;
-								output[i] = *texmi;
-								i++;
+								output += "2^";
 								for (int p = 0; p < 100000000; p++);
 								setButton(btns[1], 110, 535, tex2, "1");
 								settextstyle(18, 10, _T("宋体"));//设置字体格式
@@ -1148,10 +1112,7 @@ int main()
 								outtextxy(b, a, tex3);
 								b += 15;
 								outtextxy(b, a, texmi);
-								output[i] = *tex3;
-								i++;
-								output[i] = *texmi;
-								i++;
+								output += "";
 								for (int p = 0; p < 100000000; p++);
 								setButton(btns[1], 180, 535, tex3, "1");
 								settextstyle(18, 10, _T("宋体"));//设置字体格式

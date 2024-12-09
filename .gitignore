@@ -2,3 +2,5 @@ x64/
 图形/
 .vscode/
 .vs/
+target/
+.DS_Store

@@ -129,14 +129,13 @@
   <ItemGroup>
     <ClCompile Include="CalcString.cpp" />
     <ClCompile Include="GetValue.c" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="ParseMathExpression.c" />
-    <ClCompile Include="源.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CalcString.hpp" />
     <ClInclude Include="GetValue.h" />
     <ClInclude Include="ParseMathExpression.h" />
-    <ClInclude Include="源.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

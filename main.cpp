@@ -7,6 +7,11 @@
 using namespace std;
 int a=0,b = 0,i=0;
 string output;
+string result;
+string* presult;
+double outcome=0.0;
+double* poutcome=&outcome;
+
 
 struct Button
 {
@@ -109,7 +114,7 @@ int main()
 	TCHAR texsqrt[10] = _T(" sqrt");
 	TCHAR texping[10] = _T("x");
 	TCHAR texli[10] = _T("x");
-
+	TCHAR s[100];
 
 	
 	
@@ -190,11 +195,11 @@ int main()
 
 		setButton(btns[22], 110, 535, tex2, "1");
 		settextstyle(18, 10, _T("宋体"));//设置字体格式
-		outtextxy(40 + 10, 465 - 10, texping);
+		outtextxy(110 + 10, 535 - 15, texping);
 
 		setButton(btns[22], 180, 535, tex3, "1");
 		settextstyle(18, 10, _T("宋体"));//设置字体格式
-		outtextxy(40 + 10, 465 - 10, texping);
+		outtextxy(180 + 10, 535 - 15, texping);
 
 		setButton(btns[22], 250, 535, texpi, "4");
 
@@ -903,9 +908,9 @@ int main()
 									b = 0;
 								}
 								else b -= 15;
-								//outtextxy(b, a, texli);
+								//outtextxy(b, a, texmi);
 								settextstyle(18, 10, _T("宋体"));//设置字体格式
-								outtextxy(180 + 10, 465 - 10, tex3);
+								outtextxy(b, a, tex3);
 								settextstyle(30, 15, _T("宋体"));
 								output += "^3";
 								for (int p = 0; p < 100000000; p++);
@@ -919,7 +924,7 @@ int main()
 									x = MessageBox(GetForegroundWindow(), TEXT("输入数据已达上限！"), TEXT("请重新输入！"), 1);
 									cout << x;
 								}
-								b += 45;
+								b += 15;
 							}
 							m.message = 0;
 						}
@@ -1084,7 +1089,7 @@ int main()
 								for (int p = 0; p < 100000000; p++);
 								setButton(btns[1], 110, 535, tex2, "1");
 								settextstyle(18, 10, _T("宋体"));//设置字体格式
-								outtextxy(40 + 10, 465 - 10, texping);
+								outtextxy(110+ 10, 535 - 15, texping);
 								settextstyle(30, 15, _T("宋体"));
 								if (i >= 360)
 								{
@@ -1112,11 +1117,11 @@ int main()
 								outtextxy(b, a, tex3);
 								b += 15;
 								outtextxy(b, a, texmi);
-								output += "";
+								output += "3^";
 								for (int p = 0; p < 100000000; p++);
 								setButton(btns[1], 180, 535, tex3, "1");
 								settextstyle(18, 10, _T("宋体"));//设置字体格式
-								outtextxy(40 + 10, 465 - 10, texping);
+								outtextxy(180+ 10,535 - 15, texping);
 								settextstyle(30, 15, _T("宋体"));
 								if (i >= 360)
 								{
@@ -1124,7 +1129,7 @@ int main()
 									x = MessageBox(GetForegroundWindow(), TEXT("输入数据已达上限！"), TEXT("请重新输入！"), 1);
 									cout << x;
 								}
-								b += 45;
+								b += 15;
 							}
 							m.message = 0;
 						}
@@ -1141,8 +1146,7 @@ int main()
 									b = 0;
 								}
 								outtextxy(b, a, texpi);
-								output[i] = *texpi;
-								i++;
+								output += "pi";
 								for (int p = 0; p < 100000000; p++);
 								setButton(btns[1], 250, 535, texpi, "4");
 								if (i >= 360)
@@ -1168,8 +1172,7 @@ int main()
 									b = 0;
 								}
 								outtextxy(b, a, tex0);
-								output[i] = *tex0;
-								i++;
+								output += "0";
 								for (int p = 0; p < 100000000; p++);
 								setButton(btns[1], 320, 535, tex0, "4");
 								if (i >= 360)
@@ -1194,11 +1197,10 @@ int main()
 									a += 40;
 									b = 0;
 								}
-								outtextxy(b, a, tex9);
-								output[i] = *tex9;
-								i++;
+								outtextxy(b, a, texf);
+								output += ".";
 								for (int p = 0; p < 100000000; p++);
-								setButton(btns[1], 390, 535, tex9, "4");
+								setButton(btns[1], 390, 535, texf, "4");
 								if (i >= 360)
 								{
 									int x;
@@ -1222,8 +1224,7 @@ int main()
 									b = 0;
 								}
 								outtextxy(b, a, texchu);
-								output[i] = *texchu;
-								i++;
+								output += "/";
 								for (int p = 0; p < 100000000; p++);
 								setButton(btns[1], 460, 535, texchu, "2");
 								if (i >= 360)
@@ -1393,32 +1394,37 @@ int main()
 							}
 							m.message = 0;
 						}
+						*/
 						if (m.x > 430 && m.x < 490)
 						{
-							if (m.y >= 295 && m.y <= 355)
+							if (m.y >= 575 && m.y <= 635)
 							{
 								setfillcolor(RGB(145, 145, 145));
-								fillcircle(460, 325, 30);
-								outtextxy(b, a, texjia);
-								output[i] = *texjia;
-								i++;
+								fillcircle(460, 605, 30);
+								
 								for (int p = 0; p < 100000000; p++);
-								setButton(btns[1], 460, 325, texjia, "1");
+								setButton(btns[1], 460, 605, texdeng, "3");
 								if (i >= 360)
 								{
 									int x;
 									x = MessageBox(GetForegroundWindow(), TEXT("输入数据已达上限！"), TEXT("请重新输入！"), 1);
 									cout << x;
 								}
-								b += 15;
-								if (b == 480)
-								{
-									a += 40;
-									b = 0;
-								}
+								presult = &result;
+								
+								getStringValue(output, presult, 1.0,poutcome );
+								clearrectangle(0, 0, 600, 225);
+								swprintf_s(s, _T("%lf"), outcome);
+								outtextxy(0, 0,s);
+								a = 0;
+								b = 0;
+								
+								
 							}
 							m.message = 0;
-						}*/
+						}
+						
+						
 			if (a >= 200&&b>=390||a>200 )
 			{
 				int x;

@@ -1412,16 +1412,22 @@ int main()
 									cout << x;
 								}
 								presult = &result;
-								
-								getStringValue(output, presult, 1.0,poutcome );
-								clearrectangle(0, 0, 600, 225);
-								//strcpy(s1, result.c_str());								
-								swprintf_s(s, _T("%lf"), outcome);
-								outtextxy(0, 0,s);
-								a = 0;
-								b = 0;
-								
-								
+								//在这里加入对getStringValue返回值的处理：
+								//如果返回值是0，那么计算正常，更新显示，否则报错
+								if (getStringValue(output, presult, 1.0, poutcome) == 0)
+								{
+									clearrectangle(0, 0, 600, 225);
+									// strcpy(s1, result.c_str());
+									swprintf_s(s, _T("%lf"), outcome);
+									outtextxy(0, 0, s);
+									a = 0;
+									b = 0;
+								}
+								else //发生了数学错误，如除数为0、反三角函数超过定义域
+								{
+									int x = MessageBox(GetForegroundWindow(), TEXT("发生数学错误"), TEXT("请重新输入！"), 1);
+									cout << x;
+								}
 							}
 							m.message = 0;
 						}

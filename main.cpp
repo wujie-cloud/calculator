@@ -4,6 +4,7 @@
 #include<Windows.h>
 #include<iostream>
 #include"CalcString.hpp"
+
 using namespace std;
 int a=0,b = 0,i=0;
 string output;
@@ -1414,6 +1415,7 @@ int main()
 								
 								getStringValue(output, presult, 1.0,poutcome );
 								clearrectangle(0, 0, 600, 225);
+								//strcpy(s1, result.c_str());								
 								swprintf_s(s, _T("%lf"), outcome);
 								outtextxy(0, 0,s);
 								a = 0;

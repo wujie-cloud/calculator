@@ -1,158 +1,74 @@
-#include <iostream>
-#include <string>
-#include <thread>
 #include <windows.h>
-#include <audioclient.h>
-#include <mmdeviceapi.h>
-#include <mmiscapi.h>
+#include <mciapi.h>
+#include <iostream>
+#include<mmsystem.h>
 
-void playAudio(const std::string& filePath) {
-    HRESULT hr = CoInitializeEx(NULL, COINIT_APARTMENTTHREADED);
-    if (FAILED(hr)) {
-        std::cerr << "Failed to initialize COM library" << std::endl;
-        return;
+#pragma comment(lib, "winmm.lib")
+
+DWORD WINAPI PlayMp3Thread(LPVOID lpParam) {
+    const char* mp3FilePath = (const char*)lpParam;
+    if (!mp3FilePath || strlen(mp3FilePath) == 0) {
+        return 1;
     }
 
-    IAudioClient* pAudioClient = NULL;
-    IAudioRenderClient* pRenderClient = NULL;
-
-    hr = CoCreateInstance(__uuidof(MMDeviceEnumerator), NULL, CLSCTX_ALL, __uuidof(IMMDeviceEnumerator), (void**)&pEnumerator);
-    if (FAILED(hr)) {
-        std::cerr << "Failed to create enumerator" << std::endl;
-        CoUninitialize();
-        return;
+    std::string mciString = "open " + std::string(mp3FilePath);
+    if (mciSendStringA(mciString.c_str(), NULL, 0, NULL) != 0) {
+        std::cerr << "Error opening MP3 file: " << mp3FilePath << std::endl;
+        return 1;
     }
 
-    IMMDevice* pDevice = NULL;
-    hr = pEnumerator->GetDefaultAudioEndpoint(eRender, eMultimedia, &pDevice);
-    if (FAILED(hr)) {
-        std::cerr << "Failed to get default audio endpoint" << std::endl;
-        pEnumerator->Release();
-        CoUninitialize();
-        return;
+    mciString = "play " + std::string(mp3FilePath);
+    if (mciSendStringA(mciString.c_str(), NULL, 0, NULL) != 0) {
+        std::cerr << "Error playing MP3 file: " << mp3FilePath << std::endl;
+        return 1;
     }
 
-    hr = pDevice->Activate(__uuidof(IAudioClient), CLSCTX_ALL, NULL, (void**)&pAudioClient);
-    if (FAILED(hr)) {
-        std::cerr << "Failed to activate audio client" << std::endl;
-        pDevice->Release();
-        pEnumerator->Release();
-        CoUninitialize();
-        return;
+    // Wait for the playback to finish
+    mciString = "wait " + std::string(mp3FilePath);
+    if (mciSendStringA(mciString.c_str(), NULL, 0, NULL) != 0) {
+        std::cerr << "Error waiting for MP3 file to finish: " << mp3FilePath << std::endl;
+        return 1;
     }
 
-    hr = pAudioClient->Initialize(AUDCLNT_SHAREMODE_SHARED, AUDCLNT_STREAMFLAGS_EVENTCALLBACK, 0, 0, NULL, NULL);
-    if (FAILED(hr)) {
-        std::cerr << "Failed to initialize audio client" << std::endl;
-        pAudioClient->Release();
-        pDevice->Release();
-        pEnumerator->Release();
-        CoUninitialize();
-        return;
+    mciString = "close " + std::string(mp3FilePath);
+    if (mciSendStringA(mciString.c_str(), NULL, 0, NULL) != 0) {
+        std::cerr << "Error closing MP3 file: " << mp3FilePath << std::endl;
+        return 1;
     }
-
-    hr = pAudioClient->GetBufferSize(&bufferSize);
-    if (FAILED(hr)) {
-        std::cerr << "Failed to get buffer size" << std::endl;
-        pAudioClient->Release();
-        pDevice->Release();
-        pEnumerator->Release();
-        CoUninitialize();
-        return;
-    }
-
-    hr = pAudioClient->GetService(__uuidof(IAudioRenderClient), (void**)&pRenderClient);
-    if (FAILED(hr)) {
-        std::cerr << "Failed to get render client" << std::endl;
-        pAudioClient->Release();
-        pDevice->Release();
-        pEnumerator->Release();
-        CoUninitialize();
-        return;
-    }
-
-    hr = pAudioClient->Start();
-    if (FAILED(hr)) {
-        std::cerr << "Failed to start audio client" << std::endl;
-        pRenderClient->Release();
-        pAudioClient->Release();
-        pDevice->Release();
-        pEnumerator->Release();
-        CoUninitialize();
-        return;
-    }
-
-    // 读取音频数据并播放
-    BYTE* pData = nullptr;
-    hr = pRenderClient->GetBuffer(bufferSize, &pData);
-    if (FAILED(hr)) {
-        std::cerr << "Failed to get buffer" << std::endl;
-        pRenderClient->Release();
-        pAudioClient->Release();
-        pDevice->Release();
-        pEnumerator->Release();
-        CoUninitialize();
-        return;
-    }
-
-    // 读取音频文件并填充buffer
-    HMMIO hmmio = mmioOpenA(filePath.c_str(), NULL, MMIO_READ | MMIO_ALLOCBUF);
-    if (hmmio == NULL) {
-        std::cerr << "Failed to open audio file" << std::endl;
-        pRenderClient->Release();
-        pAudioClient->Release();
-        pDevice->Release();
-        pEnumerator->Release();
-        CoUninitialize();
-        return;
-    }
-
-    MCIERROR mciError = mciSendStringA("open \"" + filePath + "\" type waveaudio alias myWave", NULL, 0, 0);
-    if (mciError != 0) {
-        std::cerr << "Failed to open audio file" << std::endl;
-        mmioClose(hmmio, MMIO_CLOSE_DELETE);
-        pRenderClient->Release();
-        pAudioClient->Release();
-        pDevice->Release();
-        pEnumerator->Release();
-        CoUninitialize();
-        return;
-    }
-
-    mciError = mciSendStringA("play myWave", NULL, 0, 0);
-    if (mciError != 0) {
-        std::cerr << "Failed to play audio file" << std::endl;
-        mciSendStringA("close myWave", NULL, 0, 0);
-        mmioClose(hmmio, MMIO_CLOSE_DELETE);
-        pRenderClient->Release();
-        pAudioClient->Release();
-        pDevice->Release();
-        pEnumerator->Release();
-        CoUninitialize();
-        return;
-    }
-
-    // ���待音频播放完成
-    mciSendStringA("wait myWave", NULL, 0, 0);
-
-    mciSendStringA("close myWave", NULL, 0, 0);
-    mmioClose(hmmio, MMIO_CLOSE_DELETE);
-
-    pRenderClient->Release();
-    pAudioClient->Release();
-    pDevice->Release();
-    pEnumerator->Release();
-    CoUninitialize();
+    return 0;
 }
-
+int playMusic(std::wstring pathToMusic)
+{
+    std::wstring sciCommand = L"open " + pathToMusic;
+    mciSendString(sciCommand.c_str(), NULL, 0, NULL);
+    sciCommand = L"play " + pathToMusic + L" wait";
+    mciSendString(sciCommand.c_str(), NULL, 0, NULL);
+    sciCommand = L"close " + pathToMusic;
+    mciSendString(sciCommand.c_str(), NULL, 0, NULL);
+    return 0;
+}
 int main() {
-    std::thread t1(playAudio, "audio1.wav");
-    std::thread t2(playAudio, "audio2.wav");
-    std::thread t3(playAudio, "audio3.wav");
+    const char* mp3FilePath = "C:\\Users\\xiong\\calculator\\Assets\\num1.mp3";
 
-    t1.join();
-    t2.join();
-    t3.join();
+    //HANDLE hThread;
+    //DWORD threadId;
 
+    //hThread = CreateThread(NULL, 0, PlayMp3Thread, (LPVOID)mp3FilePath, 0, &threadId);
+
+    //if (hThread == NULL) {
+    //    std::cerr << "Failed to create thread: " << GetLastError() << std::endl;
+    //    return 1;
+    //}
+
+    //// Wait for the thread to finish
+    //WaitForSingleObject(hThread, INFINITE);
+
+    //CloseHandle(hThread);
+    //mciSendString(L"open C:\\Users\\xiong\\calculator\\Assets\\num1.mp3", NULL, 0, NULL);
+    //mciSendString(L"play C:\\Users\\xiong\\calculator\\Assets\\num1.mp3 wait", NULL, 0, NULL);
+    ////mciSendString(L"wait", NULL, 0, NULL);
+    //mciSendString(L"close C:\\Users\\xiong\\calculator\\Assets\\num1.mp3", NULL, 0, NULL);
+    playMusic(L"C:\\Users\\xiong\\calculator\\Assets\\num1.mp3");
+    //Sleep(3000);
     return 0;
 }

@@ -27,6 +27,12 @@
     <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="AudioPlay.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="FileOperations.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CalcString.hpp">
@@ -37,6 +43,9 @@
     </ClInclude>
     <ClInclude Include="GetValue.h">
       <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="FileOperations.hpp">
+      <Filter>源文件</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

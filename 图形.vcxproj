@@ -127,13 +127,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AudioPlay.cpp" />
     <ClCompile Include="CalcString.cpp" />
+    <ClCompile Include="FileOperations.cpp" />
     <ClCompile Include="GetValue.c" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ParseMathExpression.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CalcString.hpp" />
+    <ClInclude Include="FileOperations.hpp" />
     <ClInclude Include="GetValue.h" />
     <ClInclude Include="ParseMathExpression.h" />
   </ItemGroup>

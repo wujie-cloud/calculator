@@ -1,7 +1,7 @@
 /*** 
  * @Author       : FeiYehua
  * @Date         : 2024-12-11 20:16:09
- * @LastEditTime : 2024-12-11 20:17:33
+ * @LastEditTime : 2024-12-11 21:10:31
  * @LastEditors  : FeiYehua
  * @Description  : 
  * @FilePath     : PlayAudio.hpp
@@ -15,6 +15,7 @@
 #include <vector>
 #include <string>
 #include <windows.h>
+#include <mmsystem.h>
 #include <mciapi.h>
 #include <map>
 

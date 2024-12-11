@@ -7,25 +7,19 @@
  * @FilePath     : ToBeCalculatedExpression.cpp
  * @     © 2024 FeiYehua
  */
-#include <iostream>
-#include <string>
-#include <vector>
-#include <cctype>
-#include <algorithm>
+#include"ToBeCalculatedExpression.hpp"
+
 class ToBeCalculatedExpression
 {
 public:
     std::string toBeCalculatedString;
-    std::vector<std::string> addedItem;
-    const std::vector<char> invalidStrings = {'*', '+', '-', '/', '^', ')', '.'};
-    const std::vector<std::string> validStrings = {"pi", "e"};
-
     ToBeCalculatedExpression() : toBeCalculatedString(""), addedItem() {}
 
     void removeLast()
     {
         if (!addedItem.empty())
         {
+            soundPlayPool.playSound("CLC");
             toBeCalculatedString.erase(toBeCalculatedString.length() - addedItem.back().length());
             addedItem.pop_back();
         }
@@ -35,12 +29,14 @@ public:
     {
         std::string mutableAddedString = addedString;
         checkIfMultiplicationIsOmitted(&mutableAddedString);
+        soundPlayPool.playSound(addedString);
         addedItem.push_back(mutableAddedString);
         toBeCalculatedString += mutableAddedString;
     }
 
     void removeAll()
     {
+        soundPlayPool.playSound("AC");
         addedItem.clear();
         toBeCalculatedString = "";
     }
@@ -63,6 +59,10 @@ public:
     }
 
 private:
+    std::vector<std::string> addedItem;
+    const std::vector<char> invalidStrings = {'*', '+', '-', '/', '^', ')', '.'};
+    const std::vector<std::string> validStrings = {"pi", "e"};
+    soundPlayPool soundPlayPool;
     bool isDigitsOnly(const std::string &string)
     {
         for (char c : string)
@@ -84,6 +84,7 @@ private:
 
             if ((isLastValid || isDigitsOnly) && !isCurrentInvalid)
             {
+                soundPlayPool.playSound("*");
                 (*addedString).insert(0, "*");
             }
         }
@@ -95,7 +96,7 @@ private:
 //     result.addNext(rhs);
 //     return result;
 // }
-#if 1
+#if 0
 int main()
 {
     ToBeCalculatedExpression expression1;

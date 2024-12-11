@@ -9,7 +9,7 @@
 using namespace std;
 int a = 0, b = 0, i = 0;
 //string output;
-ToBeCalculatedExpression output="";
+ToBeCalculatedExpression output;
 string result;
 string *presult;
 double outcome = 0.0;

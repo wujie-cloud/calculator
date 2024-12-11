@@ -1,79 +1,95 @@
 /*** 
  * @Author       : FeiYehua
  * @Date         : 2024-12-10 17:11:05
- * @LastEditTime : 2024-12-10 17:11:05
+ * @LastEditTime : 2024-12-11 20:17:17
  * @LastEditors  : FeiYehua
  * @Description  : 
  * @FilePath     : PlayAudio.cpp
  * @     © 2024 FeiYehua
  */
-#include <iostream>
-#include <fstream>
-#include <vector>
-#include <thread>
-#include <mutex>
-#include <condition_variable>
+#include"PlayAudio.hpp"
+#pragma comment(lib, "winmm.lib")
 
-// ���设我们有一个音频播放库，例如SDL或OpenAL
-// ��里我们使用一个简单的示例函数来模拟音频播放
-void playAudio(const std::string& filePath) {
-    // ���拟音频播放操作
-    std::cout << "Playing audio file: " << filePath << std::endl;
-    // ��里可以添加实际的音频播放代码，例如使用SDL或OpenAL
-    // 为了模拟播放时间，我们暂停一段时间
-    std::this_thread::sleep_for(std::chrono::seconds(5));
-}
-
-class AudioPlayer {
+class soundPlayPool
+{
 public:
-    void addAudio(const std::string& filePath) {
-        std::lock_guard<std::mutex> lock(mutex_);
-        audioFiles_.push_back(filePath);
-        conditionVariable_.notify_one();
+    void playSound(std::string soundFileName)
+    {
+        soundPlayThread.push_back(std::thread(&soundPlayPool::addMusicToThreadPool,this, pathToFile[soundFileName]));
     }
-
-    void start() {
-        if (thread_.joinable()) {
-            thread_.join();
+    void join()
+    {
+        for (auto &thread : soundPlayThread)
+        {
+            if (thread.joinable())
+            {
+                thread.join();
+            }
         }
-        thread_ = std::thread(&AudioPlayer::worker, this);
     }
 
 private:
-    void worker() {
-        while (true) {
-            std::unique_lock<std::mutex> lock(mutex_);
-            conditionVariable_.wait(lock, [this] { return !audioFiles_.empty(); });
-
-            if (audioFiles_.empty()) {
-                break;
-            }
-
-            std::string filePath = audioFiles_.front();
-            audioFiles_.pop_front();
-
-            lock.unlock();
-            playAudio(filePath);
-        }
+    std::vector<std::thread> soundPlayThread;
+    std::map<std::string, std::wstring> pathToFile = {
+        {"1", L".\\Assets\\num1.mp3"},
+        {"2", L".\\Assets\\num2.mp3"},
+        {"3", L".\\Assets\\num3.mp3"},
+        {"4", L".\\Assets\\num4.mp3"},
+        {"5", L".\\Assets\\num5.mp3"},
+        {"6", L".\\Assets\\num6.mp3"},
+        {"7", L".\\Assets\\num7.mp3"},
+        {"8", L".\\Assets\\num8.mp3"},
+        {"9", L".\\Assets\\num9.mp3"},
+        {"0", L".\\Assets\\num0.mp3"},
+        {"+", L".\\Assets\\plus.mp3"},
+        {"-", L".\\Assets\\minus.mp3"},
+        {"*", L".\\Assets\\multiply.mp3"},
+        {"/", L".\\Assets\\divide.mp3"},
+        {"sin", L".\\Assets\\sin.mp3"},
+        {"cos", L".\\Assets\\cos.mp3"},
+        {"arcsin", L".\\Assets\\arcsin.mp3"},
+        {"arccos", L".\\Assets\\arccos.mp3"},
+        {"^", L".\\Assets\\power.mp3"},
+        {"pi", L".\\Assets\\pi.mp3"},
+        {".", L".\\Assets\\point.mp3"},
+        {"=", L".\\Assets\\equal.mp3"},
+        {"AC", L".\\Assets\\AC.mp3"},
+        {"CLC", L".\\Assets\\CLC.mp3"},
+        {"ln", L".\\Assets\\ln.mp3"},
+        
+    };
+    int addMusicToThreadPool(std::wstring pathToMusic)
+    {
+        //pathToMusic=L"C:\\Users\\xiong\\Downloads\\target-win64\\Release\\Assets\\divide.mp3";
+        std::wstring sciCommand = L"open " + pathToMusic;
+        mciSendStringW(sciCommand.c_str(), NULL, 0, NULL);
+        sciCommand = L"play " + pathToMusic + L" wait";
+        mciSendStringW(sciCommand.c_str(), NULL, 0, NULL);
+        sciCommand = L"close " + pathToMusic;
+        mciSendStringW(sciCommand.c_str(), NULL, 0, NULL);
+        return 0;
     }
-
-    std::vector<std::string> audioFiles_;
-    std::thread thread_;
-    std::mutex mutex_;
-    std::condition_variable conditionVariable_;
 };
 
-int main() {
-    AudioPlayer player;
-    player.start();
-
-    // 添加音频文件
-    player.addAudio("audio1.mp3");
-    player.addAudio("audio2.mp3");
-    player.addAudio("audio3.mp3");
-
-    // ���待一段时间，让音频播放完成
-    std::this_thread::sleep_for(std::chrono::seconds(10));
-
-    return 0;
+int main(int argc,char* argv[])
+{
+    // srand(time(NULL));
+    soundPlayPool test;
+    // std::vector<std::string> str;
+    // for(int i=1;i<argc;i++)
+    // {
+    //     str.push_back(argv[i]);
+    // }
+    // for(int i=1;i<argc;i++)
+    // {
+    //     //std::wstring ws(str[i-1].begin(),str[i-1].end());
+    //     test.playSound(ws);
+    // }
+    while(1)
+    {
+        std::string s;
+        std::cin>>s;
+        test.playSound(s);
+    }
+    test.join();
 }

@@ -4,10 +4,10 @@
 #include<Windows.h>
 #include<iostream>
 #include"CalcString.hpp"
-
+#include"ToBeCalculatedExpression.hpp"
 using namespace std;
 int a=0,b = 0,i=0;
-string output;
+ToBeCalculatedExpression output;
 string result;
 string* presult;
 double outcome=0.0;
@@ -1414,7 +1414,7 @@ int main()
 								presult = &result;
 								//在这里加入对getStringValue返回值的处理：
 								//如果返回值是0，那么计算正常，更新显示，否则报错
-								if (getStringValue(output, presult, 1.0, poutcome) == 0)
+								if (getStringValue(output.toBeCalculatedString, presult, 1.0, poutcome) == 0)
 								{
 									clearrectangle(0, 0, 600, 225);
 									// strcpy(s1, result.c_str());

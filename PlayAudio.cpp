@@ -7,6 +7,13 @@
  * @FilePath     : PlayAudio.cpp
  * @     © 2024 FeiYehua
  */
+#include <iostream>
+#include <thread>
+#include <vector>
+#include <string>
+#include <windows.h>
+#include <mciapi.h>
+#include <map>
 #include"PlayAudio.hpp"
 #pragma comment(lib, "winmm.lib")
 
@@ -70,7 +77,7 @@ private:
         return 0;
     }
 };
-
+#if 0
 int main(int argc,char* argv[])
 {
     // srand(time(NULL));
@@ -93,3 +100,4 @@ int main(int argc,char* argv[])
     }
     test.join();
 }
+#endif

@@ -12,6 +12,7 @@
 #include <vector>
 #include <cctype>
 #include <algorithm>
+#include"ToBeCalculatedExpression.hpp"
 class ToBeCalculatedExpression
 {
 public:
@@ -95,7 +96,7 @@ private:
 //     result.addNext(rhs);
 //     return result;
 // }
-#if 1
+#if 0
 int main()
 {
     ToBeCalculatedExpression expression1;

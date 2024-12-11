@@ -27,10 +27,13 @@
     <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="AudioPlay.cpp">
+    <ClCompile Include="FileOperations.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="FileOperations.cpp">
+    <ClCompile Include="PlayAudio.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ToBeCalculatedExpression.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -46,6 +49,15 @@
     </ClInclude>
     <ClInclude Include="FileOperations.hpp">
       <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ToBeCalculatedExpression.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayAudio.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="setbutton.h">
+      <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

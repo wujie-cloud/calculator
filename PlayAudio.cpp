@@ -70,7 +70,7 @@ private:
         return 0;
     }
 };
-
+#ifdef 0
 int main(int argc,char* argv[])
 {
     // srand(time(NULL));
@@ -93,3 +93,4 @@ int main(int argc,char* argv[])
     }
     test.join();
 }
+#endif

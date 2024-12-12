@@ -76,7 +76,7 @@ void ToBeCalculatedExpression::checkIfMultiplicationIsOmitted(std::string *added
         bool isCurrentInvalid = invalidStrings.end() != std::find(invalidStrings.begin(), invalidStrings.end(), (*addedString).front());
         bool isDigitsOnly = this->isDigitsOnly(lastAddedString);
 
-        if ((isLastValid || isDigitsOnly) && !isCurrentInvalid && !isDigitsOnly(*addedString))
+        if ((isLastValid || isDigitsOnly) && !isCurrentInvalid && !this->isDigitsOnly(*addedString))
         {
             soundPlayPool.playSound("*");
             (*addedString).insert(0, "*");

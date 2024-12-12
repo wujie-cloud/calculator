@@ -10,7 +10,7 @@
 #include "PlayAudio.hpp"
 #pragma comment(lib, "winmm.lib")
 
-void soundPlayPool::playSound(std::string soundFileName)
+void soundPlayPool::playSound(const std::string& soundFileName)
 {
     soundPlayThread.push_back(std::thread(&soundPlayPool::addMusicToThreadPool, this, pathToFile[soundFileName]));
 }
@@ -25,7 +25,7 @@ void soundPlayPool::join()
     }
 }
 
-int soundPlayPool::addMusicToThreadPool(std::wstring pathToMusic)
+int soundPlayPool::addMusicToThreadPool(const std::wstring& pathToMusic)
 {
     // pathToMusic=L"C:\\Users\\xiong\\Downloads\\target-win64\\Release\\Assets\\divide.mp3";
     std::wstring sciCommand = L"open " + pathToMusic;
@@ -36,7 +36,8 @@ int soundPlayPool::addMusicToThreadPool(std::wstring pathToMusic)
     mciSendStringW(sciCommand.c_str(), NULL, 0, NULL);
     return 0;
 }
-#ifdef 0
+
+#if 0
 int main(int argc, char *argv[])
 {
     // srand(time(NULL));

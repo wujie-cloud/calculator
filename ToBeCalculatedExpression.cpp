@@ -9,8 +9,6 @@
  */
 #include "ToBeCalculatedExpression.hpp"
 
-ToBeCalculatedExpression::ToBeCalculatedExpression() : toBeCalculatedString(""), addedItem() {}
-
 void ToBeCalculatedExpression::removeLast()
 {
     if (!addedItem.empty())

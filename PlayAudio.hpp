@@ -21,7 +21,7 @@
 
 class soundPlayPool {
 public:
-   void playSound(const std::string& soundFileName);
+   void playSound(const std::string&);
    void join();
 
 private:
@@ -54,7 +54,7 @@ private:
        {"ln", L".\\Assets\\ln.mp3"}
    };
 
-   int addMusicToThreadPool(const std::wstring& pathToMusic);
+   int addMusicToThreadPool(const std::wstring&);
 };
 
 #endif // PlayAudio_H

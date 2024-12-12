@@ -133,6 +133,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ParseMathExpression.c" />
     <ClCompile Include="PlayAudio.cpp" />
+    <ClCompile Include="ToBeCalculatedExpression.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CalcString.hpp" />
@@ -140,6 +141,8 @@
     <ClInclude Include="GetValue.h" />
     <ClInclude Include="ParseMathExpression.h" />
     <ClInclude Include="PlayAudio.hpp" />
+    <ClInclude Include="setbutton.h" />
+    <ClInclude Include="ToBeCalculatedExpression.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

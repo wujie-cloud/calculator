@@ -22,7 +22,7 @@ public:
     std::vector<std::string> addedItem;
     const std::vector<char> invalidStrings = {'*', '+', '-', '/', '^', ')', '.'};
     const std::vector<std::string> validStrings = {"pi", "e"};
-
+    soundPlayPool soundPlayPool;
     ToBeCalculatedExpression() : toBeCalculatedString(""), addedItem() {}
 
     void removeLast();

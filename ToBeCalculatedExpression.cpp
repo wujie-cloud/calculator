@@ -59,7 +59,7 @@ void ToBeCalculatedExpression::operator=(const std::string &rhs)
 
 bool ToBeCalculatedExpression::isDigitsOnly(const std::string &string)
 {
-    for (char c : *string)
+    for (char c : string)
     {
         if (!isdigit(c))
             return false;
@@ -73,7 +73,7 @@ void ToBeCalculatedExpression::checkIfMultiplicationIsOmitted(std::string *added
     {
         const std::string &lastAddedString = addedItem.back();
         bool isLastValid = validStrings.end() != std::find(validStrings.begin(), validStrings.end(), lastAddedString);
-        bool isCurrentInvalid = invalidStrings.end() != std::find(invalidStrings.begin(), invalidStrings.end(), (*addedString));
+        bool isCurrentInvalid = invalidStrings.end() != std::find(invalidStrings.begin(), invalidStrings.end(), (*addedString).front());
         bool isDigitsOnly = this->isDigitsOnly(lastAddedString);
 
         if ((isLastValid || isDigitsOnly) && !isCurrentInvalid)

@@ -30,7 +30,7 @@ public:
     void removeAll();
     void join();
     
-    bool operator+(const std::string &rhs);
+    void operator+(const std::string &rhs);
     void operator+=(const std::string &rhs);
     void operator=(const std::string &rhs);
 

@@ -39,11 +39,11 @@ void ToBeCalculatedExpression::join()
     soundPlayPool.join();
 }
 
-bool ToBeCalculatedExpression::operator+(const std::string &rhs) // const
+void ToBeCalculatedExpression::operator+(const std::string &rhs) // const
 {
     // ToBeCalculatedExpression result = lhs;
     this->addNext(rhs);
-    return this;
+    //return this;
 }
 void ToBeCalculatedExpression::operator+=(const std::string &rhs)
 {
@@ -76,7 +76,7 @@ void ToBeCalculatedExpression::checkIfMultiplicationIsOmitted(std::string *added
         bool isCurrentInvalid = invalidStrings.end() != std::find(invalidStrings.begin(), invalidStrings.end(), (*addedString).front());
         bool isDigitsOnly = this->isDigitsOnly(lastAddedString);
 
-        if ((isLastValid || isDigitsOnly) && !isCurrentInvalid)
+        if ((isLastValid || isDigitsOnly) && !isCurrentInvalid && !isDigitsOnly(*addedString))
         {
             soundPlayPool.playSound("*");
             (*addedString).insert(0, "*");

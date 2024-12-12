@@ -34,6 +34,11 @@ void ToBeCalculatedExpression::removeAll()
     addedItem.clear();
     toBeCalculatedString = "";
 }
+void ToBeCalculatedExpression::join()
+{
+    soundPlayPool.join();
+}
+
 bool ToBeCalculatedExpression::operator+(const std::string &rhs) // const
 {
     // ToBeCalculatedExpression result = lhs;

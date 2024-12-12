@@ -3,12 +3,11 @@
 #include <string>
 #include <Windows.h>
 #include <iostream>
-#include"ToBeCalculatedExpression.hpp"
+#include "ToBeCalculatedExpression.hpp"
 #include "CalcString.hpp"
 
 using namespace std;
 int a = 0, b = 0, i = 0;
-//string output;
 ToBeCalculatedExpression output;
 string result;
 string *presult;
@@ -425,7 +424,7 @@ int main()
 					fillcircle(460, 255, 30);
 					clearrectangle(b - 15, a, b, a + 30);
 					// clear(output);//清楚已存字符串的最后一个字符，而非最后一次输入
-
+					output.removeLast();
 					for (int p = 0; p < 100000000; p++)
 						;
 					setButton(btns[1], 460, 255, texqingli, "3");
@@ -1506,7 +1505,10 @@ int main()
 			break;
 		case WM_KEYDOWN:
 			if (m.vkcode == VK_ESCAPE)
+			{
+				output.join();
 				return 0; // 按 ESC 键退出程序
+			}
 		}
 	}
 

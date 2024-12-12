@@ -1,7 +1,7 @@
 /*** 
  * @Author       : FeiYehua
  * @Date         : 2024-12-09 20:12:13
- * @LastEditTime : 2024-12-11 20:47:46
+ * @LastEditTime : 2024-12-12 09:08:39
  * @LastEditors  : FeiYehua
  * @Description  : 
  * @FilePath     : ToBeCalculatedExpression.hpp
@@ -28,7 +28,8 @@ public:
     void removeLast();
     void addNext(const std::string &addedString);
     void removeAll();
-
+    void join();
+    
     bool operator+(const std::string &rhs);
     void operator+=(const std::string &rhs);
     void operator=(const std::string &rhs);

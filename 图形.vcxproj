@@ -137,11 +137,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CalcString.hpp" />
+    <ClInclude Include="drawPicture.hpp" />
     <ClInclude Include="FileOperations.hpp" />
     <ClInclude Include="GetValue.h" />
     <ClInclude Include="ParseMathExpression.h" />
     <ClInclude Include="PlayAudio.hpp" />
-    <ClInclude Include="setbutton.h" />
+    <ClInclude Include="SetButtons.hpp" />
+    <ClInclude Include="drawTime.hpp" />
     <ClInclude Include="ToBeCalculatedExpression.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

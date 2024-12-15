@@ -1,7 +1,7 @@
 /*** 
  * @Author       : FeiYehua
  * @Date         : 2024-12-15 10:10:43
- * @LastEditTime : 2024-12-15 10:26:52
+ * @LastEditTime : 2024-12-15 16:31:36
  * @LastEditors  : FeiYehua
  * @Description  : 
  * @FilePath     : IdleMonitor.cpp
@@ -27,7 +27,7 @@ void IdleMonitor::timeKeeper()
         drawtime();
         std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     }
-    //clearrectangle(0, 0, 600, 225);
+    clearrectangle(0, 200, 600, 225);
     return;
 }
 void IdleMonitor::join()

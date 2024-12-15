@@ -265,7 +265,7 @@ int main()
 				{
 					setfillcolor(RGB(145, 145, 145));
 					fillcircle(40, 395, 30);
-					output += "sin";
+					output += "arcsin(";
 					drawExpression(output.toBeCalculatedString);
 					for (int p = 0; p < 100000000; p++)
 						;
@@ -282,7 +282,7 @@ int main()
 				{
 					setfillcolor(RGB(145, 145, 145));
 					fillcircle(110, 395, 30);
-					output += "arccos";
+					output += "arccos(";
 					drawExpression(output.toBeCalculatedString);
 					for (int p = 0; p < 100000000; p++)
 						;

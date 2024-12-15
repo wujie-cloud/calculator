@@ -69,10 +69,28 @@ int main()
 	ExMessage m,n;
 	DWORD starttime = GetTickCount();
 	DWORD currenttime = GetTickCount();
-	bool timeMode = false;
+	bool shift = true;
 	while (true)
 	{
-		//DWORD currenttime = GetTickCount();
+		//if (currenttime - starttime == 1 * 1000)
+		{
+			while(true)
+			{
+				drawtime();
+
+				Sleep(1000);
+				clearrectangle(0, 0, 500, 225);
+				drawtime();
+				/*ExMessage n;
+				if (peekmessage(&n, EX_MOUSE))
+				{
+					clearrectangle(0, 0, 500, 225);
+					break;
+				}*/
+			}
+		}
+
+		DWORD currenttime = GetTickCount();
 
 		// 获取一条鼠标或按键消息
 		m = getmessage(EX_MOUSE |EX_KEY);
@@ -81,16 +99,17 @@ int main()
 		{
 
 		case WM_LBUTTONDOWN:
-			
-			starttime = GetTickCount();
-			if (timeMode)
+			/*if (shift)
 			{
-				cleardevice();
-				drawpicture();
-				timeMode = false;
+				
+				shift = (!shift);
 			}
-
-		
+			if (!shift)
+			{
+				currenttime = GetTickCount();
+				shift = (!shift);
+			}*/
+		starttime = GetTickCount();
 			// 第一行
 			
 			if (m.x >= 10 && m.x <= 70)

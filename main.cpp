@@ -535,7 +535,7 @@ int main()
 					}
 					else
 						b -= 30;
-					output += "tan";
+					output += "tan(";
 					outtextxy(b, a, textan);
 					for (int p = 0; p < 100000000; p++);
 						
@@ -561,7 +561,7 @@ int main()
 						b -= 90;
 					 outtextxy(b, a, texarctan);
 					
-					output += "arctan";
+					output += "arctan(";
 					for (int p = 0; p < 100000000; p++);
 						
 					setButton(110, 465, tex, "1");

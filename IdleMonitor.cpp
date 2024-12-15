@@ -23,10 +23,11 @@ void IdleMonitor::timeKeeper()
     }
     while(!stopFlag.load())
     {
-        //clearrectangle(0, 0, 600, 225);
+        clearrectangle(0, 0, 600, 225);
         drawtime();
         std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     }
+    //clearrectangle(0, 0, 600, 225);
     return;
 }
 void IdleMonitor::join()

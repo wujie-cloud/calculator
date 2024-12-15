@@ -68,9 +68,8 @@ int main()
 	TCHAR texli[10] = _T("x");
 	TCHAR s[100];
 	ExMessage m,n;
-	DWORD starttime = GetTickCount();
-	DWORD currenttime = GetTickCount();
-	bool timeMode = false;
+	
+	
 	while (true)
 	{
 		//DWORD currenttime = GetTickCount();
@@ -81,21 +80,8 @@ int main()
 		idleMonitor.join();
 		switch (m.message)
 		{
-
 		case WM_LBUTTONDOWN:
 			
-			starttime = GetTickCount();
-			//为了实现在无操作60秒后开始绘制时间，需要另外拉一个线程出来计时，
-			//因为显然如果没有动作，就会卡在getmessage那一句话。
-			//每次获取到消息后，就将计时器停止。
-			if (timeMode)
-			{
-				cleardevice();
-				drawpicture();
-				timeMode = false;
-			}
-
-		
 			// 第一行
 			
 			if (m.x >= 10 && m.x <= 70)
@@ -137,7 +123,7 @@ int main()
 					else
 						b -= 30;
 					outtextxy(b, a, texln);
-					output += "ln";
+					output += "ln(";
 					for (int p = 0; p < 100000000; p++)
 						;
 					setButton(110, 255, texln, "1");
@@ -251,7 +237,7 @@ int main()
 					else
 						b -= 45;
 					outtextxy(b, a, texsin);
-					output += "sin";
+					output += "sin(";
 					for (int p = 0; p < 100000000; p++)
 						;
 					setButton(40, 325, texsin, "1");
@@ -275,7 +261,7 @@ int main()
 					else
 						b -= 45;
 					outtextxy(b, a, texcos);
-					output += "cos";
+					output += "cos(";
 					for (int p = 0; p < 100000000; p++)
 						;
 					setButton(110, 325, texcos, "1");

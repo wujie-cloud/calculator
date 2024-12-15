@@ -9,6 +9,7 @@
 #include "SetButtons.hpp"
 #include "DrawPicture.hpp"
 #include "DrawTime.hpp"
+#include "IdleMonitor.hpp"
 using namespace std;
 int a = 0, b = 0;
 ToBeCalculatedExpression output;
@@ -73,16 +74,20 @@ int main()
 	while (true)
 	{
 		//DWORD currenttime = GetTickCount();
-
+		IdleMonitor idleMonitor;
 		// 获取一条鼠标或按键消息
 		m = getmessage(EX_MOUSE |EX_KEY);
-		
+		idleMonitor.stopFlag.store(true);
+		idleMonitor.join();
 		switch (m.message)
 		{
 
 		case WM_LBUTTONDOWN:
 			
 			starttime = GetTickCount();
+			//为了实现在无操作60秒后开始绘制时间，需要另外拉一个线程出来计时，
+			//因为显然如果没有动作，就会卡在getmessage那一句话。
+			//每次获取到消息后，就将计时器停止。
 			if (timeMode)
 			{
 				cleardevice();

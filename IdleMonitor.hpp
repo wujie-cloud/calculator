@@ -19,12 +19,12 @@ class IdleMonitor
 {
 public:
     IdleMonitor();
-    std::atomic<bool> stopFlag(false);
+    std::atomic<bool> stopFlag;
     void join();
 private:
     std::thread thread; // 线程池
     int startTime;
     void timeKeeper();//计时器与绘画函数
-}
+};
 
 #endif // IDLEMONITOR_HPP

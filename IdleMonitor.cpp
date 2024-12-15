@@ -12,22 +12,24 @@
 IdleMonitor::IdleMonitor()
 {
     startTime=time(NULL);
-    thread=std::thread(timeKeeper,this);
+    stopFlag.store(false);
+    thread=std::thread(&IdleMonitor::timeKeeper,this);
 }
-IdleMonitor::timeKeeper()
+void IdleMonitor::timeKeeper()
 {
-    while(!stopFlag.load()&&time(NULL)-startTime<60)
+    while(!stopFlag.load()&&time(NULL)-startTime<5)
     {
         std::this_thread::sleep_for(std::chrono::milliseconds(20));
     }
     while(!stopFlag.load())
     {
+        //clearrectangle(0, 0, 600, 225);
         drawtime();
         std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     }
     return;
 }
-IdleMonitor::join()
+void IdleMonitor::join()
 {
     if(thread.joinable())
     {

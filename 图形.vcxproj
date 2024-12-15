@@ -132,6 +132,7 @@
     <ClCompile Include="DrawTime.cpp" />
     <ClCompile Include="FileOperations.cpp" />
     <ClCompile Include="GetValue.c" />
+    <ClCompile Include="IdleMonitor.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ParseMathExpression.c" />
     <ClCompile Include="PlayAudio.cpp" />
@@ -144,6 +145,7 @@
     <ClInclude Include="DrawTime.hpp" />
     <ClInclude Include="FileOperations.hpp" />
     <ClInclude Include="GetValue.h" />
+    <ClInclude Include="IdleMonitor.hpp" />
     <ClInclude Include="ParseMathExpression.h" />
     <ClInclude Include="PlayAudio.hpp" />
     <ClInclude Include="SetButtons.hpp" />

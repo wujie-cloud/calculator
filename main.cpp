@@ -23,7 +23,7 @@ double *poutcome = &outcome;
 
 int main()
 {
-	
+	soundPlayPool soundPlayPool;
 	drawpicture();
 	// 数字
 	TCHAR tex0[10] = _T("0");
@@ -618,6 +618,7 @@ int main()
 					if (getStringValue(output.toBeCalculatedString, presult, 1.0, poutcome) == 0)
 					{
 						drawResult("="+result);
+						soundPlayPool.playString("="+result);
 					}
 					else // 发生了数学错误，如除数为0、反三角函数超过定义域
 					{

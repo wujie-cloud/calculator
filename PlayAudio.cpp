@@ -36,7 +36,7 @@ void soundPlayPool::playString(const std::string& string)
 {
 
     //std::queue<char> soundPlayQueue；
-    //将整个字符串中每一个数逐个取出播放，并
+    //将整个字符串中每一个数逐个取出播放
     stringPlayThread.push_back(std::thread(&soundPlayPool::playSoundThread,this,string));
 }
 void soundPlayPool::playSoundThread(const std::string& string)

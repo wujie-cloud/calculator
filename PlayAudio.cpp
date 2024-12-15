@@ -44,8 +44,14 @@ void soundPlayPool::playSoundThread(const std::string& string)
     for(char c:string)
     {
         std::string tstr(1,c);
-        std::wstring ws = pathToFile[tstr];
-        playSound(ws);
+        //std::wstring ws = pathToFile[tstr];
+        soundPlayThread.push_back(std::thread(&soundPlayPool::playSound, this, pathToFile[tstr]));
+        // playSound(ws);
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+        if(tstr=="=")
+        {
+            std::this_thread::sleep_for(std::chrono::milliseconds(500));
+        }
     }
 }
 int soundPlayPool::playSound(const std::wstring& pathToMusic)

@@ -13,7 +13,6 @@
 #include "StringToWString.hpp"
 #include "DrawExpressionAndResult.hpp"
 using namespace std;
-int a = 0, b = 0;
 ToBeCalculatedExpression output;
 string result;
 string *presult;
@@ -24,7 +23,7 @@ double *poutcome = &outcome;
 
 int main()
 {
-	
+	soundPlayPool soundPlayPool;
 	drawpicture();
 	// 数字
 	TCHAR tex0[10] = _T("0");
@@ -148,10 +147,6 @@ int main()
 					for (int p = 0; p < 100000000; p++)//这句话是干什么的？
 						;
 					setButton(320, 255, texac, "3");
-					
-					a = 0;
-					b = 0;
-					
 				}
 				m.message = 0;
 			}
@@ -210,8 +205,6 @@ int main()
 					for (int p = 0; p < 100000000; p++)
 						;
 					setButton(180, 325, tex7, "4");
-					
-					b += 15;
 				}
 				m.message = 0;
 			}
@@ -318,8 +311,6 @@ int main()
 					for (int p = 0; p < 100000000; p++)
 						;
 					setButton(250, 395, tex5, "4");
-					
-					b += 15;
 				}
 				m.message = 0;
 			}
@@ -407,8 +398,6 @@ int main()
 					for (int p = 0; p < 100000000; p++)
 						;
 					setButton(250, 465, tex2, "4");
-					
-					b += 15;
 				}
 				m.message = 0;
 			}
@@ -423,8 +412,6 @@ int main()
 					for (int p = 0; p < 100000000; p++)
 						;
 					setButton(320, 465, tex3, "4");
-					
-					b += 15;
 				}
 				m.message = 0;
 			}
@@ -439,8 +426,6 @@ int main()
 					for (int p = 0; p < 100000000; p++)
 						;
 					setButton(390, 465, texcheng, "2");
-					
-					b += 15;
 				}
 				m.message = 0;
 			}
@@ -460,8 +445,6 @@ int main()
 					settextstyle(18, 10, _T("宋体")); // 设置字体格式
 					outtextxy(40 + 10, 535 - 15, texping);
 					settextstyle(30, 15, _T("宋体"));
-					
-					b += 15;
 				}
 				m.message = 0;
 			}
@@ -521,8 +504,6 @@ int main()
 					for (int p = 0; p < 100000000; p++)
 						;
 					setButton(320, 535, texf, "4");
-					
-					b += 15;
 				}
 				m.message = 0;
 			}
@@ -555,8 +536,6 @@ int main()
 					settextstyle(18, 10, _T("宋体")); // 设置字体格式
 					outtextxy(40 + 10, 605 - 10, tex2);
 					settextstyle(30, 15, _T("宋体"));
-					
-					b += 15;
 				}
 				m.message = 0;
 			}
@@ -574,8 +553,6 @@ int main()
 					settextstyle(18, 10, _T("宋体")); // 设置字体格式
 					outtextxy(110 + 10, 605 - 10, tex3);
 					settextstyle(30, 15, _T("宋体"));
-					
-					b += 15;
 				}
 				m.message = 0;
 			}
@@ -593,8 +570,6 @@ int main()
 					settextstyle(18, 10, _T("宋体")); // 设置字体格式
 					outtextxy(180 - 5 * _tcslen(texsqrt), 605 - 9, texsqrt);
 					settextstyle(30, 15, _T("宋体"));
-					
-					b += 75;
 				}
 				m.message = 0;
 			}
@@ -606,15 +581,11 @@ int main()
 					fillcircle(250, 605, 30);
 					drawExpression(output.toBeCalculatedString);
 					output += "e^";
-					
 					for (int p = 0; p < 100000000; p++);
 					setButton(250, 605, texe, "1");
 					settextstyle(18, 10, _T("宋体")); // 设置字体格式
 					outtextxy(250 + 10, 605 - 10, texping);
 					settextstyle(30, 15, _T("宋体"));
-					
-					b += 15;
-					
 				}
 				m.message = 0;
 			}
@@ -628,9 +599,6 @@ int main()
 					drawExpression(output.toBeCalculatedString);
 					for (int p = 0; p < 100000000; p++);
 					setButton(320, 605, texjiecheng, "1");
-				
-					b += 15;
-					
 				}
 				m.message = 0;
 			}
@@ -650,8 +618,7 @@ int main()
 					if (getStringValue(output.toBeCalculatedString, presult, 1.0, poutcome) == 0)
 					{
 						drawResult("="+result);
-						a = 0;
-						b = 0;
+						soundPlayPool.playString("="+result);
 					}
 					else // 发生了数学错误，如除数为0、反三角函数超过定义域
 					{
@@ -660,12 +627,6 @@ int main()
 					}
 				}
 				m.message = 0;
-			}
-			if (a >= 175 && b >= 360 || a > 175)
-			{
-				int x;
-				x = MessageBox(GetForegroundWindow(), TEXT("输入数据已达上限！"), TEXT("请重新输入！"), 1);
-				cout << x;
 			}
 			break;
 		case WM_KEYDOWN:

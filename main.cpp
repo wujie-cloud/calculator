@@ -10,6 +10,7 @@
 #include "DrawPicture.hpp"
 #include "DrawTime.hpp"
 #include "IdleMonitor.hpp"
+#include "StringToWString.hpp"
 using namespace std;
 int a = 0, b = 0;
 ToBeCalculatedExpression output;
@@ -66,7 +67,7 @@ int main()
 	TCHAR texsqrt[10] = _T(" sqrt");
 	TCHAR texping[10] = _T("x");
 	TCHAR texli[10] = _T("x");
-	TCHAR s[100];
+	TCHAR s[1000];
 	ExMessage m,n;
 	
 	
@@ -982,7 +983,7 @@ int main()
 					{
 						clearrectangle(0, 0, 600, 225);
 						// strcpy(s1, result.c_str());
-						swprintf_s(s, _T("%lf"), outcome);
+						swprintf_s(s, _T("%ls"), stringToWString(result).c_str());
 						outtextxy(0, 0, s);
 						a = 0;
 						b = 0;

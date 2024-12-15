@@ -142,9 +142,8 @@ int main()
 					setfillcolor(RGB(145, 145, 145));
 					fillcircle(320, 255, 30);
 					clearrectangle(0, 0, 600, 225);
-					output = "";//这里是清空输入的内容吗？
-					
-					for (int p = 0; p < 100000000; p++)//这句话是干什么的？
+					output = "";//清空输入的内容
+					for (int p = 0; p < 100000000; p++)
 						;
 					setButton(320, 255, texac, "3");
 				}

@@ -10,9 +10,9 @@
 #include "PlayAudio.hpp"
 #pragma comment(lib, "winmm.lib")
 
-void soundPlayPool::playSound(const std::string& soundFileName)
+void soundPlayPool::addMusicToThreadPool(const std::string& soundFileName)//将需要播放的音频添加到线程池中
 {
-    soundPlayThread.push_back(std::thread(&soundPlayPool::addMusicToThreadPool, this, pathToFile[soundFileName]));
+    soundPlayThread.push_back(std::thread(&soundPlayPool::playSound, this, pathToFile[soundFileName]));
 }
 void soundPlayPool::join()
 {
@@ -23,9 +23,28 @@ void soundPlayPool::join()
             thread.join();
         }
     }
+    for(auto &thread:stringPlayThread)
+    {
+        if(thread.joinable())
+        {
+            thread.join();
+        }
+    }
 }
-
-int soundPlayPool::addMusicToThreadPool(const std::wstring& pathToMusic)
+void soundPlayPool::playString(const std::string& string);
+{
+    //std::queue<char> soundPlayQueue；
+    //将整个字符串中每一个数逐个取出播放，并
+    stringPlayThread.push_back(std::thread(&soundPlayPool::playSoundThread,this,string));
+}
+void soundPlayPool::playSoundThread(const std::string& string)
+{
+    for(char c:string)
+    {
+        this->playSound(pathToFile[c]);
+    }
+}
+int soundPlayPool::playSound(const std::wstring& pathToMusic)
 {
     // pathToMusic=L"C:\\Users\\xiong\\Downloads\\target-win64\\Release\\Assets\\divide.mp3";
     std::wstring sciCommand = L"open " + pathToMusic;

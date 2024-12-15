@@ -89,21 +89,3 @@ void ToBeCalculatedExpression::checkIfMultiplicationIsOmitted(std::string *added
 //     result.addNext(rhs);
 //     return result;
 // }
-#if 0
-int main()
-{
-    ToBeCalculatedExpression expression1;
-    expression1.addNext("2");
-    expression1.addNext("+");
-    expression1.addNext("3");
-    // expression1.addNext("sin(");
-    expression1 += "sin(";
-    // ToBeCalculatedExpression expression2;
-    // expression2.addNext("3");
-
-    // ToBeCalculatedExpression finalExpression = expression1 + "3";
-    std::cout << expression1.toBeCalculatedString + "3" << std::endl; // 输出 "2*+3"
-
-    return 0;
-}
-#endif

@@ -3,12 +3,12 @@
 #include <string>
 #include <Windows.h>
 #include <iostream>
-#include<ctime>
+#include <ctime>
 #include "ToBeCalculatedExpression.hpp"
 #include "CalcString.hpp"
-#include"SetButtons.hpp"
-#include"drawPicture.hpp"
-#include"drawTime.hpp"
+#include "SetButtons.hpp"
+#include "drawPicture.hpp"
+#include "drawTime.hpp"
 using namespace std;
 int a = 0, b = 0;
 ToBeCalculatedExpression output;

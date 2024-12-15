@@ -3,12 +3,15 @@
 #include <string>
 #include <Windows.h>
 #include <iostream>
-#include<ctime>
+#include <ctime>
 #include "ToBeCalculatedExpression.hpp"
 #include "CalcString.hpp"
-#include"SetButtons.hpp"
-#include"drawPicture.hpp"
-#include"drawTime.hpp"
+#include "SetButtons.hpp"
+#include "DrawPicture.hpp"
+#include "DrawTime.hpp"
+#include "IdleMonitor.hpp"
+#include "StringToWString.hpp"
+#include "DrawExpressionAndResult.hpp"
 using namespace std;
 int a = 0, b = 0;
 ToBeCalculatedExpression output;
@@ -23,8 +26,6 @@ int main()
 {
 	
 	drawpicture();
-	drawtime();
-	
 	// 数字
 	TCHAR tex0[10] = _T("0");
 	TCHAR tex1[10] = _T("1");
@@ -65,74 +66,32 @@ int main()
 	TCHAR texsqrt[10] = _T(" sqrt");
 	TCHAR texping[10] = _T("x");
 	TCHAR texli[10] = _T("x");
-	TCHAR s[100];
 	ExMessage m,n;
-	DWORD starttime = GetTickCount();
-	DWORD currenttime = GetTickCount();
-	bool shift = true;
+	
+	
 	while (true)
 	{
-		//if (currenttime - starttime == 1 * 1000)
-		{
-			while(true)
-			{
-				drawtime();
-
-				Sleep(1000);
-				clearrectangle(0, 0, 500, 225);
-				drawtime();
-				/*ExMessage n;
-				if (peekmessage(&n, EX_MOUSE))
-				{
-					clearrectangle(0, 0, 500, 225);
-					break;
-				}*/
-			}
-		}
-
-		DWORD currenttime = GetTickCount();
-
+		//DWORD currenttime = GetTickCount();
+		IdleMonitor idleMonitor;
 		// 获取一条鼠标或按键消息
 		m = getmessage(EX_MOUSE |EX_KEY);
-		
+		idleMonitor.stopFlag.store(true);
+		idleMonitor.join();
 		switch (m.message)
 		{
-
 		case WM_LBUTTONDOWN:
-			/*if (shift)
-			{
-				
-				shift = (!shift);
-			}
-			if (!shift)
-			{
-				currenttime = GetTickCount();
-				shift = (!shift);
-			}*/
-		starttime = GetTickCount();
 			// 第一行
-			
 			if (m.x >= 10 && m.x <= 70)
 			{
 				if (m.y >= 225 && m.y <= 285)
 				{
 					setfillcolor(RGB(145, 145, 145));
 					fillcircle(40, 255, 30);
-					b += 15;
-					if (b > 410)
-					{
-						a += 35;
-						b = 0;
-					}
-					else
-						b -= 15;
-					outtextxy(b, a, texmi);
 					output += "^";
+					drawExpression(output.toBeCalculatedString);
 					for (int p = 0; p < 100000000; p++)
 						;
 					setButton( 40, 255, texmi, "1");
-					
-					b += 15;
 				}
 				m.message = 0;
 			}
@@ -142,21 +101,11 @@ int main()
 				{
 					setfillcolor(RGB(145, 145, 145));
 					fillcircle(110, 255, 30);
-					b += 30;
-					if (b > 410)
-					{
-						a += 35;
-						b = 0;
-					}
-					else
-						b -= 30;
-					outtextxy(b, a, texln);
-					output += "ln";
+					output += "ln(";
+					drawExpression(output.toBeCalculatedString);
 					for (int p = 0; p < 100000000; p++)
 						;
 					setButton(110, 255, texln, "1");
-					
-					b += 30;
 				}
 				m.message = 0;
 			}
@@ -166,20 +115,10 @@ int main()
 				{
 					setfillcolor(RGB(145, 145, 145));
 					fillcircle(180, 255, 30);
-					b += 15;
-					if (b > 420)
-					{
-						a += 35;
-						b = 0;
-					}
-					else
-						b -= 15;
-					outtextxy(b, a, texzuokuo);
 					output += "(";
+					drawExpression(output.toBeCalculatedString);
 					for (int p = 0; p < 100000000; p++);
 					setButton(180, 255, texzuokuo, "1");
-					
-					b += 15;
 				}
 				m.message = 0;
 			}
@@ -189,22 +128,11 @@ int main()
 				{
 					setfillcolor(RGB(145, 145, 145));
 					fillcircle(250, 255, 30);
-					b += 15;
-					if (b > 420)
-					{
-						a += 35;
-						b = 0;
-					}
-					else
-						b -= 15;
-					outtextxy(b, a, texyoukuo);
 					output += ")";
+					drawExpression(output.toBeCalculatedString);
 					for (int p = 0; p < 100000000; p++)
 						;
 					setButton(250, 255, texyoukuo, "1");
-					
-
-					b += 15;
 				}
 				m.message = 0;
 			}
@@ -233,18 +161,11 @@ int main()
 				{
 					setfillcolor(RGB(145, 145, 145));
 					fillcircle(390, 255, 30);
-					clearrectangle(b - 15, a, b, a + 30);
 					// clear(output);//清楚已存字符串的最后一个字符，而非最后一次输入
 					output.removeLast();
+					drawExpression(output.toBeCalculatedString);
 					for (int p = 0; p < 100000000; p++);
 					setButton(390, 255, texqingli, "3");
-					
-					b -= 15;
-					if (b < 0)
-					{
-						a -= 35;
-						b = 410;
-					}
 				}
 				m.message = 0;
 			}
@@ -256,21 +177,11 @@ int main()
 				{
 					setfillcolor(RGB(145, 145, 145));
 					fillcircle(40, 325, 30);
-					b += 45;
-					if (b > 420)
-					{
-						a += 35;
-						b = 0;
-					}
-					else
-						b -= 45;
-					outtextxy(b, a, texsin);
-					output += "sin";
+					output += "sin(";
+					drawExpression(output.toBeCalculatedString);
 					for (int p = 0; p < 100000000; p++)
 						;
 					setButton(40, 325, texsin, "1");
-					
-					b += 45;
 				}
 				m.message = 0;
 			}
@@ -280,21 +191,11 @@ int main()
 				{
 					setfillcolor(RGB(145, 145, 145));
 					fillcircle(110, 325, 30);
-					b += 45;
-					if (b > 420)
-					{
-						a += 35;
-						b = 0;
-					}
-					else
-						b -= 45;
-					outtextxy(b, a, texcos);
-					output += "cos";
+					output += "cos(";
+					drawExpression(output.toBeCalculatedString);
 					for (int p = 0; p < 100000000; p++)
 						;
 					setButton(110, 325, texcos, "1");
-					
-					b += 45;
 				}
 				m.message = 0;
 			}
@@ -304,16 +205,8 @@ int main()
 				{
 					setfillcolor(RGB(145, 145, 145));
 					fillcircle(180, 325, 30);
-					b += 15;
-					if (b > 420)
-					{
-						a += 35;
-						b = 0;
-					}
-					else
-						b -= 15;
-					outtextxy(b, a, tex7);
 					output += "7";
+					drawExpression(output.toBeCalculatedString);
 					for (int p = 0; p < 100000000; p++)
 						;
 					setButton(180, 325, tex7, "4");
@@ -328,21 +221,11 @@ int main()
 				{
 					setfillcolor(RGB(145, 145, 145));
 					fillcircle(250, 325, 30);
-					b += 15;
-					if (b > 420)
-					{
-						a += 35;
-						b = 0;
-					}
-					else
-						b -= 15;
-					outtextxy(b, a, tex8);
 					output += "8";
+					drawExpression(output.toBeCalculatedString);
 					for (int p = 0; p < 100000000; p++)
 						;
 					setButton(250, 325, tex8, "4");
-					
-					b += 15;
 				}
 				m.message = 0;
 			}
@@ -352,22 +235,11 @@ int main()
 				{
 					setfillcolor(RGB(145, 145, 145));
 					fillcircle(320, 325, 30);
-					b += 15;
-					if (b > 420)
-					{
-						a += 35;
-						b = 0;
-					}
-					else
-						b -= 15;
-					outtextxy(b, a, tex9);
 					output += "9";
+					drawExpression(output.toBeCalculatedString);
 					for (int p = 0; p < 100000000; p++)
 						;
 					setButton(320, 325, tex9, "4");
-					
-					b += 15;
-
 					m.message = 0;
 				}
 			}
@@ -377,21 +249,11 @@ int main()
 				{
 					setfillcolor(RGB(145, 145, 145));
 					fillcircle(390, 325, 30);
-					b += 15;
-					if (b > 420)
-					{
-						a += 35;
-						b = 0;
-					}
-					else
-						b -= 15;
-					outtextxy(b, a, texjia);
 					output += "+";
+					drawExpression(output.toBeCalculatedString);
 					for (int p = 0; p < 100000000; p++)
 						;
 					setButton(390, 325, texjia, "2");
-					
-					b += 15;
 				}
 				m.message = 0;
 			}
@@ -403,24 +265,14 @@ int main()
 				{
 					setfillcolor(RGB(145, 145, 145));
 					fillcircle(40, 395, 30);
-					b += 90;
-					if (b > 420)
-					{
-						a += 35;
-						b = 0;
-					}
-					else
-						b -= 90;
-					outtextxy(b, a, texarcsin);
-					output += "sin";
+					output += "arcsin(";
+					drawExpression(output.toBeCalculatedString);
 					for (int p = 0; p < 100000000; p++)
 						;
 					setButton(40, 395, tex, "1");
 					settextstyle(15, 8, _T("宋体")); // 设置字体格式
 					outtextxy(40 - 4 * _tcslen(texarcsin), 395 - 7, texarcsin);
 					settextstyle(30, 15, _T("宋体")); // 设置字体格式
-					
-					b += 90;
 				}
 				m.message = 0;
 			}
@@ -430,24 +282,14 @@ int main()
 				{
 					setfillcolor(RGB(145, 145, 145));
 					fillcircle(110, 395, 30);
-					b += 90;
-					if (b > 420)
-					{
-						a += 35;
-						b = 0;
-					}
-					else
-						b -= 90;
-					outtextxy(b, a, texarccos);
-					output += "arccos";
+					output += "arccos(";
+					drawExpression(output.toBeCalculatedString);
 					for (int p = 0; p < 100000000; p++)
 						;
 					setButton(110, 395, tex, "1");
 					settextstyle(15, 8, _T("宋体")); // 设置字体格式
 					outtextxy(110 - 4 * _tcslen(texarccos), 395 - 7, texarccos);
 					settextstyle(30, 15, _T("宋体")); // 设置字体格式
-					
-					b += 90;
 				}
 				m.message = 0;
 			}
@@ -457,21 +299,11 @@ int main()
 				{
 					setfillcolor(RGB(145, 145, 145));
 					fillcircle(180, 395, 30);
-					b += 15;
-					if (b > 420)
-					{
-						a += 35;
-						b = 0;
-					}
-					else
-						b -= 15;
-					outtextxy(b, a, tex4);
 					output += "4";
+					drawExpression(output.toBeCalculatedString);
 					for (int p = 0; p < 100000000; p++)
 						;
 					setButton(180, 395, tex4, "4");
-					
-					b += 15;
 				}
 				m.message = 0;
 			}
@@ -481,16 +313,8 @@ int main()
 				{
 					setfillcolor(RGB(145, 145, 145));
 					fillcircle(250, 395, 30);
-					b += 15;
-					if (b > 420)
-					{
-						a += 35;
-						b = 0;
-					}
-					else
-						b -= 15;
-					outtextxy(b, a, tex5);
 					output += "5";
+					drawExpression(output.toBeCalculatedString);
 					for (int p = 0; p < 100000000; p++)
 						;
 					setButton(250, 395, tex5, "4");
@@ -505,21 +329,11 @@ int main()
 				{
 					setfillcolor(RGB(145, 145, 145));
 					fillcircle(320, 395, 30);
-					b += 15;
-					if (b > 420)
-					{
-						a += 35;
-						b = 0;
-					}
-					else
-						b -= 15;
-					outtextxy(b, a, tex6);
 					output += "6";
+					drawExpression(output.toBeCalculatedString);
 					for (int p = 0; p < 100000000; p++)
 						;
 					setButton(320, 395, tex6, "4");
-					
-					b += 15;
 				}
 				m.message = 0;
 			}
@@ -529,21 +343,11 @@ int main()
 				{
 					setfillcolor(RGB(145, 145, 145));
 					fillcircle(390, 395, 30);
-					b += 15;
-					if (b > 420)
-					{
-						a += 35;
-						b = 0;
-					}
-					else
-						b -= 15;
-					outtextxy(b, a, texjian);
 					output += "-";
+					drawExpression(output.toBeCalculatedString);
 					for (int p = 0; p < 100000000; p++)
 						;
 					setButton(390, 395, texjian, "2");
-					
-					b += 15;
 				}
 				m.message = 0;
 			}
@@ -555,21 +359,10 @@ int main()
 				{
 					setfillcolor(RGB(145, 145, 145));
 					fillcircle(40, 465, 30);
-					b += 30;
-					if (b > 420)
-					{
-						a += 35;
-						b = 0;
-					}
-					else
-						b -= 30;
-					output += "tan";
-					outtextxy(b, a, textan);
+					output += "tan(";
+					drawExpression(output.toBeCalculatedString);
 					for (int p = 0; p < 100000000; p++);
-						
 					setButton(40, 465, textan, "1");
-					
-					b += 30;
 				}
 				m.message = 0;
 			}
@@ -579,25 +372,13 @@ int main()
 				{
 					setfillcolor(RGB(145, 145, 145));
 					fillcircle(110, 465, 30);
-					b += 90;
-					if (b > 420)
-					{
-						a += 35;
-						b = 0;
-					}
-					else
-						b -= 90;
-					 outtextxy(b, a, texarctan);
-					
-					output += "arctan";
+					output += "arctan(";
+					drawExpression(output.toBeCalculatedString);
 					for (int p = 0; p < 100000000; p++);
-						
 					setButton(110, 465, tex, "1");
 					settextstyle(15, 8, _T("宋体")); // 设置字体格式
 					outtextxy(110 - 4 * _tcslen(texarctan), 465 - 7, texarctan);
 					settextstyle(30, 15, _T("宋体"));
-					
-					b += 90;
 				}
 				m.message = 0;
 			}
@@ -607,22 +388,11 @@ int main()
 				{
 					setfillcolor(RGB(145, 145, 145));
 					fillcircle(180, 465, 30);
-					b += 15;
-					if (b > 420)
-					{
-						a += 35;
-						b = 0;
-					}
-					else
-						b -= 15;
-
-					outtextxy(b, a, tex1);
 					output += "1";
+					drawExpression(output.toBeCalculatedString);
 					for (int p = 0; p < 100000000; p++)
 						;
 					setButton(180, 465, tex1, "4");
-					
-					b += 15;
 				}
 				m.message = 0;
 			}
@@ -632,16 +402,8 @@ int main()
 				{
 					setfillcolor(RGB(145, 145, 145));
 					fillcircle(250, 465, 30);
-					b += 15;
-					if (b > 420)
-					{
-						a += 35;
-						b = 0;
-					}
-					else
-						b -= 15;
-					outtextxy(b, a, tex2);
 					output += "2";
+					drawExpression(output.toBeCalculatedString);
 					for (int p = 0; p < 100000000; p++)
 						;
 					setButton(250, 465, tex2, "4");
@@ -656,16 +418,8 @@ int main()
 				{
 					setfillcolor(RGB(145, 145, 145));
 					fillcircle(320, 465, 30);
-					b += 15;
-					if (b > 420)
-					{
-						a += 35;
-						b = 0;
-					}
-					else
-						b -= 15;
-					outtextxy(b, a, tex3);
 					output += "3";
+					drawExpression(output.toBeCalculatedString);
 					for (int p = 0; p < 100000000; p++)
 						;
 					setButton(320, 465, tex3, "4");
@@ -680,16 +434,8 @@ int main()
 				{
 					setfillcolor(RGB(145, 145, 145));
 					fillcircle(390, 465, 30);
-					b += 15;
-					if (b > 420)
-					{
-						a += 35;
-						b = 0;
-					}
-					else
-						b -= 15;
-					outtextxy(b, a, texcheng);
 					output += "*";
+					drawExpression(output.toBeCalculatedString);
 					for (int p = 0; p < 100000000; p++)
 						;
 					setButton(390, 465, texcheng, "2");
@@ -706,19 +452,8 @@ int main()
 				{
 					setfillcolor(RGB(145, 145, 145));
 					fillcircle(40, 535, 30);
-					b += 30;
-					if (b > 420)
-					{
-						a += 35;
-						b = 0;
-					}
-
-					else
-						b -= 30;
-					outtextxy(b, a, tex2);
-					b += 15;
-					outtextxy(b, a, texmi);
 					output += "2^";
+					drawExpression(output.toBeCalculatedString);
 					for (int p = 0; p < 100000000; p++)
 						;
 					setButton(40, 535, tex2, "1");
@@ -736,26 +471,14 @@ int main()
 				{
 					setfillcolor(RGB(145, 145, 145));
 					fillcircle(110, 535, 30);
-					b += 30;
-					if (b > 420)
-					{
-						a += 35;
-						b = 0;
-					}
-					else
-						b -= 30;
-					outtextxy(b, a, tex3);
-					b += 15;
-					outtextxy(b, a, texmi);
 					output += "3^";
+					drawExpression(output.toBeCalculatedString);
 					for (int p = 0; p < 100000000; p++)
 						;
 					setButton(110, 535, tex3, "1");
 					settextstyle(18, 10, _T("宋体")); // 设置字体格式
 					outtextxy(110 + 10, 535 - 15, texping);
 					settextstyle(30, 15, _T("宋体"));
-					
-					b += 15;
 				}
 				m.message = 0;
 			}
@@ -765,19 +488,11 @@ int main()
 				{
 					setfillcolor(RGB(145, 145, 145));
 					fillcircle(180, 535, 30);
-
-					if (b > 420)
-					{
-						a += 35;
-						b = 0;
-					}
-					outtextxy(b, a, texpi);
 					output += "pi";
+					drawExpression(output.toBeCalculatedString);
 					for (int p = 0; p < 100000000; p++)
 						;
 					setButton(180, 535, texpi, "4");
-					
-					b += 30;
 				}
 				m.message = 0;
 			}
@@ -787,19 +502,11 @@ int main()
 				{
 					setfillcolor(RGB(145, 145, 145));
 					fillcircle(250, 535, 30);
-
-					if (b > 420)
-					{
-						a += 35;
-						b = 0;
-					}
-					outtextxy(b, a, tex0);
 					output += "0";
+					drawExpression(output.toBeCalculatedString);
 					for (int p = 0; p < 100000000; p++)
 						;
 					setButton(250, 535, tex0, "4");
-					
-					b += 15;
 				}
 				m.message = 0;
 			}
@@ -809,14 +516,8 @@ int main()
 				{
 					setfillcolor(RGB(145, 145, 145));
 					fillcircle(320, 535, 30);
-
-					if (b > 420)
-					{
-						a += 35;
-						b = 0;
-					}
-					outtextxy(b, a, texf);
 					output += ".";
+					drawExpression(output.toBeCalculatedString);
 					for (int p = 0; p < 100000000; p++)
 						;
 					setButton(320, 535, texf, "4");
@@ -831,19 +532,11 @@ int main()
 				{
 					setfillcolor(RGB(145, 145, 145));
 					fillcircle(390, 535, 30);
-
-					if (b > 420)
-					{
-						a += 35;
-						b = 0;
-					}
-					outtextxy(b, a, texchu);
 					output += "/";
+					drawExpression(output.toBeCalculatedString);
 					for (int p = 0; p < 100000000; p++)
 						;
 					setButton(390, 535, texchu, "2");
-					
-					b += 15;
 				}
 				m.message = 0;
 			}
@@ -854,19 +547,8 @@ int main()
 				{
 					setfillcolor(RGB(145, 145, 145));
 					fillcircle(40, 605, 30);
-					b += 30;
-					if (b > 420)
-					{
-						a += 35;
-						b = 0;
-					}
-					else
-						b -= 30;
-					// outtextxy(b, a, texping);
-					settextstyle(18, 10, _T("宋体")); // 设置字体格式
-					outtextxy(b, a, tex2);
-					settextstyle(30, 15, _T("宋体"));
 					output += "^2";
+					drawExpression(output.toBeCalculatedString);
 					for (int p = 0; p < 100000000; p++)
 						;
 					setButton(40, 605, texping, "1");
@@ -884,19 +566,8 @@ int main()
 				{
 					setfillcolor(RGB(145, 145, 145));
 					fillcircle(110, 605, 30);
-					b += 30;
-					if (b > 420)
-					{
-						a += 35;
-						b = 0;
-					}
-					else
-						b -= 30;
-					// outtextxy(b, a, texmi);
-					settextstyle(18, 10, _T("宋体")); // 设置字体格式
-					outtextxy(b, a, tex3);
-					settextstyle(30, 15, _T("宋体"));
 					output += "^3";
+					drawExpression(output.toBeCalculatedString);
 					for (int p = 0; p < 100000000; p++)
 						;
 					setButton(110, 605, texli, "1");
@@ -914,18 +585,8 @@ int main()
 				{
 					setfillcolor(RGB(145, 145, 145));
 					fillcircle(180, 605, 30);
-					
-					b += 60;
-					if (b > 420)
-					{
-						a += 35;
-						b = 0;
-					}
-					else
-						b -= 60;
-					outtextxy(b, a, texsqrt);
-				
 					output += "sqrt";
+					drawExpression(output.toBeCalculatedString);
 					for (int p = 0; p < 100000000; p++)
 						;
 					setButton(180, 605, tex, "1");
@@ -943,17 +604,7 @@ int main()
 				{
 					setfillcolor(RGB(145, 145, 145));
 					fillcircle(250, 605, 30);
-					b += 30;
-					if (b > 420)
-					{
-						a += 35;
-						b = 0;
-					}
-					else b -= 30;
-					outtextxy(b, a, texe);
-					b += 15;
-					outtextxy(b, a, texmi);
-
+					drawExpression(output.toBeCalculatedString);
 					output += "e^";
 					
 					for (int p = 0; p < 100000000; p++);
@@ -967,23 +618,14 @@ int main()
 				}
 				m.message = 0;
 			}
-			
 			if (m.x > 290 && m.x < 350)
 			{
 				if (m.y >= 575 && m.y <= 635)
 				{
 					setfillcolor(RGB(145, 145, 145));
 					fillcircle(320, 605, 30);
-					b += 15;
-					if (b > 420)
-					{
-						a += 35;
-						b = 0;
-					}
-					else b -= 15;
-					outtextxy(b, a, texjiecheng);
-					
 					output += "!";
+					drawExpression(output.toBeCalculatedString);
 					for (int p = 0; p < 100000000; p++);
 					setButton(320, 605, texjiecheng, "1");
 				
@@ -992,7 +634,6 @@ int main()
 				}
 				m.message = 0;
 			}
-			
 			if (m.x > 360 && m.x < 420)
 			{
 				if (m.y >= 575 && m.y <= 635)
@@ -1008,10 +649,7 @@ int main()
 					// 如果返回值是0，那么计算正常，更新显示，否则报错
 					if (getStringValue(output.toBeCalculatedString, presult, 1.0, poutcome) == 0)
 					{
-						clearrectangle(0, 0, 600, 225);
-						// strcpy(s1, result.c_str());
-						swprintf_s(s, _T("%lf"), outcome);
-						outtextxy(0, 0, s);
+						drawResult("="+result);
 						a = 0;
 						b = 0;
 					}
@@ -1023,7 +661,6 @@ int main()
 				}
 				m.message = 0;
 			}
-
 			if (a >= 175 && b >= 360 || a > 175)
 			{
 				int x;
@@ -1039,11 +676,8 @@ int main()
 			}
 			break;
 		}
-		
 	}
-	
 	getchar(); // 等待用户输入
 	closegraph();
-
 	return 0;
 }

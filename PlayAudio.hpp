@@ -1,7 +1,7 @@
 /*** 
  * @Author       : FeiYehua
  * @Date         : 2024-12-11 20:16:09
- * @LastEditTime : 2024-12-11 21:10:31
+ * @LastEditTime : 2024-12-12 14:41:36
  * @LastEditors  : FeiYehua
  * @Description  : 
  * @FilePath     : PlayAudio.hpp
@@ -18,14 +18,16 @@
 #include <mmsystem.h>
 #include <mciapi.h>
 #include <map>
-
+#include <queue>
 class soundPlayPool {
 public:
-   void playSound(const std::string&);
+   void addMusicToThreadPool(const std::string&);
    void join();
+   void playString(const std::string&);
 
 private:
    std::vector<std::thread> soundPlayThread;
+   std::vector<std::thread> stringPlayThread;
    std::map<std::string, std::wstring> pathToFile = {
        {"1", L".\\Assets\\num1.mp3"},
        {"2", L".\\Assets\\num2.mp3"},
@@ -54,7 +56,8 @@ private:
        {"ln", L".\\Assets\\ln.mp3"}
    };
 
-   int addMusicToThreadPool(const std::wstring&);
+   int playSound(const std::wstring&);
+   void playSoundThread(const std::string&);
 };
 
 #endif // PlayAudio_H

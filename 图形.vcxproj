@@ -128,22 +128,27 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CalcString.cpp" />
+    <ClCompile Include="DrawPicture.cpp" />
+    <ClCompile Include="DrawTime.cpp" />
     <ClCompile Include="FileOperations.cpp" />
     <ClCompile Include="GetValue.c" />
+    <ClCompile Include="IdleMonitor.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ParseMathExpression.c" />
     <ClCompile Include="PlayAudio.cpp" />
+    <ClCompile Include="SetButtons.cpp" />
     <ClCompile Include="ToBeCalculatedExpression.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CalcString.hpp" />
-    <ClInclude Include="drawPicture.hpp" />
+    <ClInclude Include="DrawPicture.hpp" />
+    <ClInclude Include="DrawTime.hpp" />
     <ClInclude Include="FileOperations.hpp" />
     <ClInclude Include="GetValue.h" />
+    <ClInclude Include="IdleMonitor.hpp" />
     <ClInclude Include="ParseMathExpression.h" />
     <ClInclude Include="PlayAudio.hpp" />
     <ClInclude Include="SetButtons.hpp" />
-    <ClInclude Include="drawTime.hpp" />
     <ClInclude Include="ToBeCalculatedExpression.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

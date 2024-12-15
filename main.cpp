@@ -7,8 +7,8 @@
 #include "ToBeCalculatedExpression.hpp"
 #include "CalcString.hpp"
 #include "SetButtons.hpp"
-#include "drawPicture.hpp"
-#include "drawTime.hpp"
+#include "DrawPicture.hpp"
+#include "DrawTime.hpp"
 using namespace std;
 int a = 0, b = 0;
 ToBeCalculatedExpression output;

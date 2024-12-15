@@ -13,7 +13,7 @@ void ToBeCalculatedExpression::removeLast()
 {
     if (!addedItem.empty())
     {
-        soundPlayPool.playSound("CLC");
+        soundPlayPool.addMusicToThreadPool("CLC");
         toBeCalculatedString.erase(toBeCalculatedString.length() - addedItem.back().length());
         addedItem.pop_back();
     }
@@ -23,14 +23,14 @@ void ToBeCalculatedExpression::addNext(const std::string &addedString)
 {
     std::string mutableAddedString = addedString;
     checkIfMultiplicationIsOmitted(&mutableAddedString);
-    soundPlayPool.playSound(addedString);
+    soundPlayPool.addMusicToThreadPool(addedString);
     addedItem.push_back(mutableAddedString);
     toBeCalculatedString += mutableAddedString;
 }
 
 void ToBeCalculatedExpression::removeAll()
 {
-    soundPlayPool.playSound("AC");
+    soundPlayPool.addMusicToThreadPool("AC");
     addedItem.clear();
     toBeCalculatedString = "";
 }
@@ -78,7 +78,7 @@ void ToBeCalculatedExpression::checkIfMultiplicationIsOmitted(std::string *added
 
         if ((isLastValid || isDigitsOnly) && !isCurrentInvalid && !this->isDigitsOnly(*addedString))
         {
-            soundPlayPool.playSound("*");
+            soundPlayPool.addMusicToThreadPool("*");
             (*addedString).insert(0, "*");
         }
     }

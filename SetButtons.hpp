@@ -7,8 +7,8 @@
  * @FilePath     : SetButtons.hpp
  * @     © 2024 FeiYehua
  */
-#ifndef DRAWTIME_HPP
-#define DRAWTIME_HPP
+#ifndef SETBUTTONS_HPP
+#define SETBUTTONS_HPP
 
 #include <graphics.h>
 #include <stdio.h>
@@ -17,6 +17,6 @@
 #include <Windows.h>
 #include <iostream>
 
-void setButton(int, int, TCHAR*, std::string);
+void setButton(int, int, TCHAR [], std::string);
 
-#endif // DRAWTIME_HPP
+#endif // SETBUTTONS_HPP

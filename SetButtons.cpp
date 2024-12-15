@@ -7,10 +7,10 @@
  * @FilePath     : SetButtons.cpp
  * @     © 2024 FeiYehua
  */
-#include"SetButtons.hpp"
+#include "SetButtons.hpp"
 
 
-void setButton(int x, int y, TCHAR text[1000], std::string fcolor)
+void setButton(int x, int y, TCHAR text[], std::string fcolor)
 {
 	BeginBatchDraw(); // ��ͣ�滭
 	// ���ö�������

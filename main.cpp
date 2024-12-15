@@ -11,6 +11,7 @@
 #include "DrawTime.hpp"
 #include "IdleMonitor.hpp"
 #include "StringToWString.hpp"
+#include "DrawExpressionAndResult.hpp"
 using namespace std;
 int a = 0, b = 0;
 ToBeCalculatedExpression output;
@@ -67,7 +68,6 @@ int main()
 	TCHAR texsqrt[10] = _T(" sqrt");
 	TCHAR texping[10] = _T("x");
 	TCHAR texli[10] = _T("x");
-	TCHAR s[1000];
 	ExMessage m,n;
 	
 	
@@ -981,10 +981,11 @@ int main()
 					// 如果返回值是0，那么计算正常，更新显示，否则报错
 					if (getStringValue(output.toBeCalculatedString, presult, 1.0, poutcome) == 0)
 					{
-						clearrectangle(0, 0, 600, 225);
-						// strcpy(s1, result.c_str());
-						swprintf_s(s, _T("%ls"), stringToWString(result).c_str());
-						outtextxy(0, 0, s);
+						// clearrectangle(0, 0, 600, 225);
+						// // strcpy(s1, result.c_str());
+						// swprintf_s(s, _T("%ls"), stringToWString(result).c_str());
+						// outtextxy(0, 0, s);
+						drawResult("="+result);
 						a = 0;
 						b = 0;
 					}

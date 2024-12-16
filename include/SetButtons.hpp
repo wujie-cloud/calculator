@@ -17,6 +17,6 @@
 #include <Windows.h>
 #include <iostream>
 
-void setButton(int, int, TCHAR [], std::string);
+void setButton(int, int, TCHAR [], std::string);//绘制按钮函数
 
 #endif // SETBUTTONS_HPP

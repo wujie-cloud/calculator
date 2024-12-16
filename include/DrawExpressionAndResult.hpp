@@ -1,7 +1,7 @@
 /*** 
  * @Author       : FeiYehua
  * @Date         : 2024-12-15 11:48:32
- * @LastEditTime : 2024-12-15 11:48:32
+ * @LastEditTime : 2024-12-16 21:20:08
  * @LastEditors  : FeiYehua
  * @Description  : 
  * @FilePath     : DrawExpressionAndResult.hpp
@@ -16,5 +16,7 @@
 #include <iostream>
 #include "StringToWString.hpp"
 void drawExpression(std::string);
+//绘制将要计算的表达式
 void drawResult(std::string);
+//绘制计算结果
 #endif

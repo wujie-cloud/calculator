@@ -10,7 +10,6 @@
 #ifndef IDLEMONITOR_HPP
 #define IDLEMONITOR_HPP
 // 考虑封装计时与绘制时间模块。
-// 在这个类中，
 #include <thread>
 #include <atomic>
 #include <ctime>
@@ -21,14 +20,14 @@
 class IdleMonitor
 {
 public:
-    IdleMonitor();
+    IdleMonitor();//类初始化函数，主要是设置类stopFlag的值
     std::atomic<bool> stopFlag;
-    void join();
+    void join();//线程结束函数
 
 private:
     std::thread thread; // 线程池
     int startTime;
-    void timeKeeper(); // 计时器与绘画函数
+    void timeKeeper(); // 计时器，此函数会drawTime函数绘制时间
 };
 
 #endif // IDLEMONITOR_HPP

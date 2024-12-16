@@ -9,5 +9,5 @@
 #include "ToBeCalculatedExpression.hpp"
 #include "CalcString.hpp"
 #include "SetButtons.hpp"
-void drawpicture();
+void drawpicture();//绘制主界面
 #endif

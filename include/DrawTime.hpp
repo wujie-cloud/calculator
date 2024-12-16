@@ -16,6 +16,7 @@
 #include <Windows.h>
 #include <iostream>
 void drawtime();
+//绘制系统时间
 
 #endif // DRAWTIME_HPP
 

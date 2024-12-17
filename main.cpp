@@ -66,11 +66,13 @@ int main()
 	TCHAR texping[10] = _T("x");
 	TCHAR texli[10] = _T("x");
 	ExMessage m,n;
-	
+	drawtime();
 	
 	while (true)
 	{
 		//DWORD currenttime = GetTickCount();
+		//clearrectangle(40, 200, 600, 225);
+
 		IdleMonitor idleMonitor;
 		// 获取一条鼠标或按键消息
 		m = getmessage(EX_MOUSE |EX_KEY);

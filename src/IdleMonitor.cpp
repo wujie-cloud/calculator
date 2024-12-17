@@ -17,7 +17,7 @@ IdleMonitor::IdleMonitor()
 }
 void IdleMonitor::timeKeeper()
 {
-    while(!stopFlag.load()&&time(NULL)-startTime<60)//60秒无操作后进入显示时间模式
+    while(!stopFlag.load()&&time(NULL)-startTime<5)//60秒无操作后进入显示时间模式
     {
         std::this_thread::sleep_for(std::chrono::milliseconds(20));
     }

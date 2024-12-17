@@ -1,22 +1,25 @@
 /*** 
  * @Author       : FeiYehua
  * @Date         : 2024-12-15 09:08:02
- * @LastEditTime : 2024-12-15 09:14:42
+ * @LastEditTime : 2024-12-15 09:11:31
  * @LastEditors  : FeiYehua
  * @Description  : 
- * @FilePath     : SetButtons.hpp
+ * @FilePath     : drawTime.hpp
  * @     © 2024 FeiYehua
  */
-#ifndef SETBUTTONS_HPP
-#define SETBUTTONS_HPP
+#ifndef DRAWTIME_HPP
+#define DRAWTIME_HPP
 
 #include <graphics.h>
-#include <stdio.h>
+#include <conio.h>
 #include <string>
-#include <stdlib.h>
 #include <Windows.h>
 #include <iostream>
+void drawtime();
+//绘制系统时间
 
-void setButton(int, int, TCHAR [], std::string);
+#endif // DRAWTIME_HPP
 
-#endif // SETBUTTONS_HPP
+
+
+

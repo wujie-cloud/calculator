@@ -16,5 +16,5 @@
 //#include "atlbase.h"
 //#include "atlstr.h"
 #include "comutil.h"
-std::wstring stringToWString(std::string);
+std::wstring stringToWString(std::string);//将一个string转换成宽字符wstring
 #endif

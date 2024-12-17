@@ -104,6 +104,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ProjectDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -128,7 +129,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CalcString.cpp" />
-    <ClCompile Include="DrawExpressionAndResult.cpp" />
     <ClCompile Include="DrawPicture.cpp" />
     <ClCompile Include="DrawTime.cpp" />
     <ClCompile Include="FileOperations.cpp" />
@@ -138,12 +138,10 @@
     <ClCompile Include="ParseMathExpression.c" />
     <ClCompile Include="PlayAudio.cpp" />
     <ClCompile Include="SetButtons.cpp" />
-    <ClCompile Include="StringToWString.cpp" />
     <ClCompile Include="ToBeCalculatedExpression.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CalcString.hpp" />
-    <ClInclude Include="DrawExpressionAndResult.hpp" />
     <ClInclude Include="DrawPicture.hpp" />
     <ClInclude Include="DrawTime.hpp" />
     <ClInclude Include="FileOperations.hpp" />
@@ -152,7 +150,6 @@
     <ClInclude Include="ParseMathExpression.h" />
     <ClInclude Include="PlayAudio.hpp" />
     <ClInclude Include="SetButtons.hpp" />
-    <ClInclude Include="StringToWString.hpp" />
     <ClInclude Include="ToBeCalculatedExpression.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

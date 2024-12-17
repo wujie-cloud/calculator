@@ -36,7 +36,7 @@ void soundPlayPool::playString(const std::string& string)
 {
 
     //std::queue<char> soundPlayQueue；
-    //将整个字符串中每一个数逐个取出播放，并
+    //将整个字符串中每一个数逐个取出播放
     stringPlayThread.push_back(std::thread(&soundPlayPool::playSoundThread,this,string));
 }
 void soundPlayPool::playSoundThread(const std::string& string)
@@ -44,8 +44,14 @@ void soundPlayPool::playSoundThread(const std::string& string)
     for(char c:string)
     {
         std::string tstr(1,c);
-        std::wstring ws = pathToFile[tstr];
-        playSound(ws);
+        //std::wstring ws = pathToFile[tstr];
+        soundPlayThread.push_back(std::thread(&soundPlayPool::playSound, this, pathToFile[tstr]));
+        // playSound(ws);
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+        if(tstr=="=")
+        {
+            std::this_thread::sleep_for(std::chrono::milliseconds(500));
+        }
     }
 }
 int soundPlayPool::playSound(const std::wstring& pathToMusic)

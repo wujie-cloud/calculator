@@ -17,11 +17,11 @@ IdleMonitor::IdleMonitor()
 }
 void IdleMonitor::timeKeeper()
 {
-    while(!stopFlag.load()&&time(NULL)-startTime<5)
+    while(!stopFlag.load()&&time(NULL)-startTime<60)//60秒无操作后进入显示时间模式
     {
         std::this_thread::sleep_for(std::chrono::milliseconds(20));
     }
-    while(!stopFlag.load())
+    while(!stopFlag.load())//显示当前时间，每隔一秒更新一次
     {
         clearrectangle(0, 0, 600, 225);
         drawtime();

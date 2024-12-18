@@ -56,7 +56,7 @@ int main()
 	TCHAR texarctan[10] = _T("arctan");
 	TCHAR texarcsin[10] = _T("arcsin");
 	TCHAR texarccos[10] = _T("arccos");
-	TCHAR texjiecheng[10] = _T("!");
+	TCHAR texjiecheng[10] = _T("00");
 	TCHAR texmi[10] = _T("^");
 	TCHAR texln[10] = _T("ln");
 	TCHAR texlog[10] = _T("log");
@@ -570,32 +570,32 @@ int main()
 				}
 				m.message = 0;
 			}
-			if (m.x > 220 && m.x < 280)
-			{
-				if (m.y >= 575 && m.y <= 635)
-				{
-					setfillcolor(RGB(145, 145, 145));
-					fillcircle(250, 605, 30);
-					drawExpression(output.toBeCalculatedString);
-					output += "e^";
-					for (int p = 0; p < 100000000; p++);
-					setButton(250, 605, texe, "1");
-					settextstyle(18, 10, _T("宋体")); // 设置字体格式
-					outtextxy(250 + 10, 605 - 10, texping);
-					settextstyle(30, 15, _T("宋体"));
-				}
-				m.message = 0;
-			}
 			if (m.x > 290 && m.x < 350)
 			{
 				if (m.y >= 575 && m.y <= 635)
 				{
 					setfillcolor(RGB(145, 145, 145));
 					fillcircle(320, 605, 30);
-					output += "!";
+					drawExpression(output.toBeCalculatedString);
+					output += "e^";
+					for (int p = 0; p < 100000000; p++);
+					setButton(320, 605, texe, "1");
+					settextstyle(18, 10, _T("宋体")); // 设置字体格式
+					outtextxy(320 + 10, 605 - 10, texping);
+					settextstyle(30, 15, _T("宋体"));
+				}
+				m.message = 0;
+			}
+			if (m.x > 220 && m.x < 280)
+			{
+				if (m.y >= 575 && m.y <= 635)
+				{
+					setfillcolor(RGB(145, 145, 145));
+					fillcircle(250, 605, 30);
+					output += "00";
 					drawExpression(output.toBeCalculatedString);
 					for (int p = 0; p < 100000000; p++);
-					setButton(320, 605, texjiecheng, "1");
+					setButton(250, 605, texjiecheng, "4");
 				}
 				m.message = 0;
 			}

@@ -42,7 +42,7 @@ void drawpicture()
 	TCHAR texarctan[10] = _T("arctan");
 	TCHAR texarcsin[10] = _T("arcsin");
 	TCHAR texarccos[10] = _T("arccos");
-	TCHAR texjiecheng[10] = _T("!");
+	TCHAR texjiecheng[10] = _T("00");
 	TCHAR texmi[10] = _T("^");
 	TCHAR texln[10] = _T("ln");
 	TCHAR texlog[10] = _T("log");
@@ -160,12 +160,12 @@ void drawpicture()
 	outtextxy(180 - 5 * _tcslen(texsqrt), 605 - 9, texsqrt);
 	
 
-	setButton(250, 605, texe, "1");
+	setButton(320, 605, texe, "1");
 	settextstyle(18, 10, _T("宋体")); // 设置字体格式
-	outtextxy(250 + 10, 605 - 10, texping);
+	outtextxy(320 + 10, 605 - 10, texping);
 
 
-	setButton(320, 605, texjiecheng, "1");
+	setButton(250, 605, texjiecheng, "4");
 
 	setButton(390, 605, texdeng, "3");
 }

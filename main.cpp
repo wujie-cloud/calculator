@@ -559,7 +559,7 @@ int main()
 				{
 					setfillcolor(RGB(145, 145, 145));
 					fillcircle(180, 605, 30);
-					output += "sqrt";
+					output += "^0.5";
 					drawExpression(output.toBeCalculatedString);
 					for (int p = 0; p < 100000000; p++)
 						;
@@ -612,16 +612,25 @@ int main()
 					presult = &result;
 					// 在这里加入对getStringValue返回值的处理：
 					// 如果返回值是0，那么计算正常，更新显示，否则报错
-					if (getStringValue(output.toBeCalculatedString, presult, 1.0, poutcome) == 0)
+					if (output.canBeCalculated())
 					{
-						drawResult("="+result);
-						soundPlayPool.playString("="+result);
+						if (getStringValue(output.toBeCalculatedString, presult, 1.0, poutcome) == 0)
+						{
+							drawResult("=" + result);
+							soundPlayPool.playString("=" + result);
+						}
+						else // 发生了数学错误，如除数为0、反三角函数超过定义域
+						{
+							int x = MessageBox(GetForegroundWindow(), TEXT("发生数学错误"), TEXT("请重新输入！"), 1);
+							cout << x;
+						}
 					}
-					else // 发生了数学错误，如除数为0、反三角函数超过定义域
+					else
 					{
-						int x = MessageBox(GetForegroundWindow(), TEXT("发生数学错误"), TEXT("请重新输入！"), 1);
+						int x = MessageBox(GetForegroundWindow(), TEXT("表达式未结束"), TEXT("请重新输入！"), 1);
 						cout << x;
 					}
+					
 				}
 				m.message = 0;
 			}

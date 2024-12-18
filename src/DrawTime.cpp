@@ -15,5 +15,5 @@ void drawtime()
     GetLocalTime(&ti);
     TCHAR time[256] = {0};
     swprintf_s(time, _T("%u/%u/%u %02d:%02d:%02d"), ti.wYear, ti.wMonth, ti.wDay-8, ti.wHour, ti.wMinute, ti.wSecond);
-    outtextxy(40, 200, time);
+    outtextxy(40, 180, time);
 }

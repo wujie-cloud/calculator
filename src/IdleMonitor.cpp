@@ -9,15 +9,16 @@
  */
 
 #include"IdleMonitor.hpp"
-IdleMonitor::IdleMonitor()
+IdleMonitor::IdleMonitor(int t)
 {
     startTime=time(NULL);
+    idleTime = t;
     stopFlag.store(false);
     thread=std::thread(&IdleMonitor::timeKeeper,this);
 }
 void IdleMonitor::timeKeeper()
 {
-    while(!stopFlag.load()&&time(NULL)-startTime<5)//60秒无操作后进入显示时间模式
+    while(!stopFlag.load()&&time(NULL)-startTime<idleTime)//60秒无操作后进入显示时间模式
     {
         std::this_thread::sleep_for(std::chrono::milliseconds(20));
     }
@@ -27,7 +28,7 @@ void IdleMonitor::timeKeeper()
         drawtime();
         std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     }
-    clearrectangle(0, 200, 600, 225);
+    clearrectangle(0, 180, 600, 225);
     return;
 }
 void IdleMonitor::join()

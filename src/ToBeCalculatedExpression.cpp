@@ -84,6 +84,19 @@ void ToBeCalculatedExpression::checkIfMultiplicationIsOmitted(std::string *added
     }
 }
 
+bool ToBeCalculatedExpression::canBeCalculated()
+{
+    if (invalidEndString.end() == std::find(invalidEndString.begin(), invalidEndString.end(), addedItem.back()) 
+        && std::count(toBeCalculatedString.begin(),toBeCalculatedString.end(),'(' ) == std::count(toBeCalculatedString.begin(), toBeCalculatedString.end(),')') )
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
 // ToBeCalculatedExpression operator+(const ToBeCalculatedExpression& lhs, const std::string& rhs) {
 //     ToBeCalculatedExpression result = lhs;
 //     result.addNext(rhs);

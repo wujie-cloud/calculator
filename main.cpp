@@ -66,18 +66,14 @@ int main()
 	TCHAR texping[10] = _T("x");
 	TCHAR texli[10] = _T("x");
 	ExMessage m,n;
-	drawtime();
-	
+	IdleMonitor initialIdleMonitor(0);
+	m = getmessage(EX_MOUSE | EX_KEY);
+	initialIdleMonitor.stopFlag.store(true);
+	initialIdleMonitor.join();
+
 	while (true)
 	{
-		//DWORD currenttime = GetTickCount();
-		//clearrectangle(40, 200, 600, 225);
-
-		IdleMonitor idleMonitor;
-		// 获取一条鼠标或按键消息
-		m = getmessage(EX_MOUSE |EX_KEY);
-		idleMonitor.stopFlag.store(true);
-		idleMonitor.join();
+		
 		switch (m.message)
 		{
 		case WM_LBUTTONDOWN:
@@ -563,7 +559,7 @@ int main()
 				{
 					setfillcolor(RGB(145, 145, 145));
 					fillcircle(180, 605, 30);
-					output += "sqrt";
+					output += "^0.5";
 					drawExpression(output.toBeCalculatedString);
 					for (int p = 0; p < 100000000; p++)
 						;
@@ -616,16 +612,25 @@ int main()
 					presult = &result;
 					// 在这里加入对getStringValue返回值的处理：
 					// 如果返回值是0，那么计算正常，更新显示，否则报错
-					if (getStringValue(output.toBeCalculatedString, presult, 1.0, poutcome) == 0)
+					if (output.canBeCalculated())
 					{
-						drawResult("="+result);
-						soundPlayPool.playString("="+result);
+						if (getStringValue(output.toBeCalculatedString, presult, 1.0, poutcome) == 0)
+						{
+							drawResult("=" + result);
+							soundPlayPool.playString("=" + result);
+						}
+						else // 发生了数学错误，如除数为0、反三角函数超过定义域
+						{
+							int x = MessageBox(GetForegroundWindow(), TEXT("发生数学错误"), TEXT("请重新输入！"), 1);
+							cout << x;
+						}
 					}
-					else // 发生了数学错误，如除数为0、反三角函数超过定义域
+					else
 					{
-						int x = MessageBox(GetForegroundWindow(), TEXT("发生数学错误"), TEXT("请重新输入！"), 1);
+						int x = MessageBox(GetForegroundWindow(), TEXT("表达式未结束"), TEXT("请重新输入！"), 1);
 						cout << x;
 					}
+					
 				}
 				m.message = 0;
 			}
@@ -638,6 +643,12 @@ int main()
 			}
 			break;
 		}
+		IdleMonitor idleMonitor(5);
+		// 获取一条鼠标或按键消息
+		m = getmessage(EX_MOUSE | EX_KEY);
+		drawExpression(output.toBeCalculatedString);
+		idleMonitor.stopFlag.store(true);
+		idleMonitor.join();
 	}
 	getchar(); // 等待用户输入
 	closegraph();

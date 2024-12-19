@@ -22,7 +22,7 @@ class IdleMonitor
 public:
     IdleMonitor(int);//类初始化函数，主要是设置类stopFlag的值
     std::atomic<bool> stopFlag;
-    ~IdleMonitor()
+    ~IdleMonitor()//析构函数，安全结束线程
     {
         join();
     }

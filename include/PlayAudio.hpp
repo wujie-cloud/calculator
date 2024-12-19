@@ -1,7 +1,7 @@
 /*** 
  * @Author       : FeiYehua
  * @Date         : 2024-12-11 20:16:09
- * @LastEditTime : 2024-12-16 21:28:37
+ * @LastEditTime : 2024-12-19 08:17:57
  * @LastEditors  : FeiYehua
  * @Description  : 
  * @FilePath     : PlayAudio.hpp
@@ -41,15 +41,23 @@ private:
        {"8", L".\\Assets\\num8.mp3"},
        {"9", L".\\Assets\\num9.mp3"},
        {"0", L".\\Assets\\num0.mp3"},
+       {"00", L".\\Assets\\num00.mp3"},
        {"+", L".\\Assets\\plus.mp3"},
        {"-", L".\\Assets\\minus.mp3"},
        {"*", L".\\Assets\\multiply.mp3"},
        {"/", L".\\Assets\\divide.mp3"},
-       {"sin", L".\\Assets\\sin.mp3"},
-       {"cos", L".\\Assets\\cos.mp3"},
-       {"arcsin", L".\\Assets\\arcsin.mp3"},
-       {"arccos", L".\\Assets\\arccos.mp3"},
+       {"sin(", L".\\Assets\\sin.mp3"},
+       {"cos(", L".\\Assets\\cos.mp3"},
+       {"tan(", L".\\Assets\\tan.mp3"},
+       {"arcsin(", L".\\Assets\\arcsin.mp3"},
+       {"arccos(", L".\\Assets\\arccos.mp3"},
+       {"arctan(", L".\\Assets\\arctan.mp3"},
+       {"^0.5", L".\\Assets\\sqrt.mp3"},
        {"^", L".\\Assets\\power.mp3"},
+       {"2^", L".\\Assets\\2^.mp3"},
+       {"3^", L".\\Assets\\3^.mp3"},
+       {"^2", L".\\Assets\\^2.mp3"},
+       {"^3", L".\\Assets\\^3.mp3"},
        {"pi", L".\\Assets\\pi.mp3"},
        {".", L".\\Assets\\point.mp3"},
        {"=", L".\\Assets\\equal.mp3"},

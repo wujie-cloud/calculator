@@ -22,12 +22,16 @@ class IdleMonitor
 public:
     IdleMonitor(int);//类初始化函数，主要是设置类stopFlag的值
     std::atomic<bool> stopFlag;
-    void join();//线程结束函数
-
+    ~IdleMonitor()
+    {
+        join();
+    }
+    
 private:
     std::thread thread; // 线程池
     int idleTime;
     int startTime;
+    void join();//线程结束函数
     void timeKeeper(); // 计时器，此函数会drawTime函数绘制时间
 };
 

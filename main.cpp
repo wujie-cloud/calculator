@@ -69,7 +69,7 @@ int main()
 	IdleMonitor initialIdleMonitor(0);
 	m = getmessage(EX_MOUSE | EX_KEY);
 	initialIdleMonitor.stopFlag.store(true);
-	initialIdleMonitor.join();
+	//initialIdleMonitor.join();
 
 	while (true)
 	{
@@ -648,7 +648,7 @@ int main()
 		m = getmessage(EX_MOUSE | EX_KEY);
 		drawExpression(output.toBeCalculatedString);
 		idleMonitor.stopFlag.store(true);
-		idleMonitor.join();
+		//idleMonitor.join();
 	}
 	getchar(); // 等待用户输入
 	closegraph();

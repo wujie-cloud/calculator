@@ -34,7 +34,7 @@ public:
 private:
     std::vector<std::string> addedItem;
     const std::vector<char> invalidStrings = { '*', '+', '-', '/', '^', ')', '.' };
-    const std::vector<std::string> validStrings = { "pi", "e" };
+    const std::vector<std::string> validStrings = { "pi", "e" ,"("};
     const std::vector<std::string> invalidEndString = { "(","*","+","-","/",".","^" };
     soundPlayPool soundPlayPool;
     bool isDigitsOnly(const std::string &string);//判断添加的字符是否仅为数字组成

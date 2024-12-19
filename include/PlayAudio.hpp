@@ -47,6 +47,8 @@ private:
        {"--", L".\\Assets\\-.mp3"},
        {"*", L".\\Assets\\multiply.mp3"},
        {"/", L".\\Assets\\divide.mp3"},
+       {"(", L".\\Assets\\(.mp3"},
+       {")", L".\\Assets\\).mp3"},
        {"sin(", L".\\Assets\\sin.mp3"},
        {"cos(", L".\\Assets\\cos.mp3"},
        {"tan(", L".\\Assets\\tan.mp3"},
@@ -64,7 +66,7 @@ private:
        {"=", L".\\Assets\\equal.mp3"},
        {"AC", L".\\Assets\\AC.mp3"},
        {"CLC", L".\\Assets\\CLC.mp3"},
-       {"ln", L".\\Assets\\ln.mp3"}
+       {"ln(", L".\\Assets\\ln.mp3"}
    };
 
    int playSound(const std::wstring&);//新线程中调用的函数，播放指定的音频

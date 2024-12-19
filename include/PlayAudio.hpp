@@ -1,7 +1,7 @@
 /*** 
  * @Author       : FeiYehua
  * @Date         : 2024-12-11 20:16:09
- * @LastEditTime : 2024-12-19 08:17:57
+ * @LastEditTime : 2024-12-19 08:38:17
  * @LastEditors  : FeiYehua
  * @Description  : 
  * @FilePath     : PlayAudio.hpp
@@ -44,6 +44,7 @@ private:
        {"00", L".\\Assets\\num00.mp3"},
        {"+", L".\\Assets\\plus.mp3"},
        {"-", L".\\Assets\\minus.mp3"},
+       {"--", L".\\Assets\\-.mp3"},
        {"*", L".\\Assets\\multiply.mp3"},
        {"/", L".\\Assets\\divide.mp3"},
        {"sin(", L".\\Assets\\sin.mp3"},

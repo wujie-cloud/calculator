@@ -45,6 +45,10 @@ void soundPlayPool::playSoundThread(const std::string& string)
     {
         std::string tstr(1,c);
         //std::wstring ws = pathToFile[tstr];
+        if(tstr=="-")
+        {
+            soundPlayThread.push_back(std::thread(&soundPlayPool::playSound, this, pathToFile["--"]));
+        }
         soundPlayThread.push_back(std::thread(&soundPlayPool::playSound, this, pathToFile[tstr]));
         // playSound(ws);
         std::this_thread::sleep_for(std::chrono::milliseconds(1000));

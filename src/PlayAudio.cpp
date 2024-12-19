@@ -48,6 +48,7 @@ void soundPlayPool::playSoundThread(const std::string& string)
         if(tstr=="-")
         {
             soundPlayThread.push_back(std::thread(&soundPlayPool::playSound, this, pathToFile["--"]));
+            continue;
         }
         soundPlayThread.push_back(std::thread(&soundPlayPool::playSound, this, pathToFile[tstr]));
         // playSound(ws);
